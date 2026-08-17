@@ -4,6 +4,7 @@ import 'package:movies_app/ui/screens/home/tabs/explore/explore_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/home/home_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/profile/profile_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/search/search_tab.dart';
+import 'package:movies_app/utils/size_utils.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/app_language_provider.dart';
 import '../../../utils/app_assets.dart';
@@ -23,91 +24,102 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var languageProvider = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.darkGreyColor,
-        currentIndex: selectedIndex,
-        onTap: (index) {
-          selectedIndex = index;
-          setState(() {});
-        },
-        items: [
-          _builtBottomNavBarItem(
-            unSelectedIcon: SvgPicture.asset(
-              AppAssets.homeIcon,
-            ),
-            selectedIcon: SvgPicture.asset(
-              AppAssets.homeIcon, colorFilter: ColorFilter.mode(
-              AppColors.primaryColor,
-              BlendMode.srcIn,
-            ),
-            ),
-            
-            // selectedIcon: Image.asset(
-            //   AppAssets.homeIcon,
-            //   color: AppColors.primaryColor,
-            // ),
-            label: '',
-            isSelected: selectedIndex == 0,
-          ),
-          _builtBottomNavBarItem(
-            unSelectedIcon: SvgPicture.asset(
-              AppAssets.searchIcon,
-            ),
-            selectedIcon: SvgPicture.asset(
-              AppAssets.searchIcon,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryColor,
-                BlendMode.srcIn,
+      bottomNavigationBar: Container(
+        padding: EdgeInsetsGeometry.symmetric(vertical: context.height*.01,horizontal: context.width*.01),
+        decoration: BoxDecoration(
+          borderRadius:  BorderRadius.circular(16),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: AppColors.darkGreyColor,
+            currentIndex: selectedIndex,
+            onTap: (index) {
+              selectedIndex = index;
+              setState(() {});
+            },
+            items: [
+              _builtBottomNavBarItem(
+                unSelectedIcon: SvgPicture.asset(
+                  AppAssets.homeIcon,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppAssets.homeIcon, colorFilter: ColorFilter.mode(
+                  AppColors.primaryColor,
+                  BlendMode.srcIn,
+                ),
+                ),
+          
+                // selectedIcon: Image.asset(
+                //   AppAssets.homeIcon,
+                //   color: AppColors.primaryColor,
+                // ),
+                label: '',
+                isSelected: selectedIndex == 0,
               ),
-            ),            // selectedIcon: Image.asset(
-            //   // AppAssets.searchIcon,
-            //   // color: AppColors.primaryColor,
-            // ),
-            // unSelectedIcon: Image.asset(AppAssets.searchIcon),
-            label: '',
-            isSelected: selectedIndex == 1,
-          ),
-          _builtBottomNavBarItem(
-            unSelectedIcon: SvgPicture.asset(
-              AppAssets.exploreIcon,
-            ),
-            selectedIcon: SvgPicture.asset(
-              AppAssets.exploreIcon,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryColor,
-                BlendMode.srcIn,
+              _builtBottomNavBarItem(
+                unSelectedIcon: SvgPicture.asset(
+                  AppAssets.searchIcon,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppAssets.searchIcon,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryColor,
+                    BlendMode.srcIn,
+                  ),
+                ),            // selectedIcon: Image.asset(
+                //   // AppAssets.searchIcon,
+                //   // color: AppColors.primaryColor,
+                // ),
+                // unSelectedIcon: Image.asset(AppAssets.searchIcon),
+                label: '',
+                isSelected: selectedIndex == 1,
               ),
-            ),
-            // selectedIcon: Image.asset(
-            //   AppAssets.exploreIcon,
-            //   color: AppColors.primaryColor,
-            // ),
-            // unSelectedIcon: Image.asset(AppAssets.exploreIcon),
-            label: '',
-            isSelected: selectedIndex == 2,
-          ),
-          _builtBottomNavBarItem(
-            unSelectedIcon: SvgPicture.asset(
-    AppAssets.profileIcon,
-    ),
-            selectedIcon: SvgPicture.asset(
+              _builtBottomNavBarItem(
+                unSelectedIcon: SvgPicture.asset(
+                  AppAssets.exploreIcon,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppAssets.exploreIcon,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                // selectedIcon: Image.asset(
+                //   AppAssets.exploreIcon,
+                //   color: AppColors.primaryColor,
+                // ),
+                // unSelectedIcon: Image.asset(AppAssets.exploreIcon),
+                label: '',
+                isSelected: selectedIndex == 2,
+              ),
+              _builtBottomNavBarItem(
+                unSelectedIcon: SvgPicture.asset(
               AppAssets.profileIcon,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryColor,
-                BlendMode.srcIn,
               ),
-            ),
-            // unSelectedIcon: Image.asset(AppAssets.profileIcon),
-            // selectedIcon: Image.asset(
-            //   AppAssets.profileIcon,
-            //   color: AppColors.primaryColor,
-            // ),
-            label: '',
-            isSelected: selectedIndex == 3,
+                selectedIcon: SvgPicture.asset(
+                  AppAssets.profileIcon,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                // unSelectedIcon: Image.asset(AppAssets.profileIcon),
+                // selectedIcon: Image.asset(
+                //   AppAssets.profileIcon,
+                //   color: AppColors.primaryColor,
+                // ),
+                label: '',
+                isSelected: selectedIndex == 3,
+              ),
+          
+            ],
           ),
-
-        ],
+        ),
       ),
       body: tabList[selectedIndex],
 
