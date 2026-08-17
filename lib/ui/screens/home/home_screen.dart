@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../providers/app_language_provider.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -24,11 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var languageProvider = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
+      extendBody: true,
       bottomNavigationBar: Container(
-        padding: EdgeInsetsGeometry.symmetric(vertical: context.height*.01,horizontal: context.width*.01),
-        decoration: BoxDecoration(
-          borderRadius:  BorderRadius.circular(16),
+        padding: EdgeInsetsGeometry.symmetric(
+          vertical: context.height * .01,
+          horizontal: context.width * .01,
         ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BottomNavigationBar(
@@ -43,45 +46,32 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             items: [
               _builtBottomNavBarItem(
-                unSelectedIcon: SvgPicture.asset(
-                  AppAssets.homeIcon,
-                ),
+                unSelectedIcon: SvgPicture.asset(AppAssets.homeIcon),
                 selectedIcon: SvgPicture.asset(
-                  AppAssets.homeIcon, colorFilter: ColorFilter.mode(
-                  AppColors.primaryColor,
-                  BlendMode.srcIn,
+                  AppAssets.homeIcon,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
-                ),
-          
-                // selectedIcon: Image.asset(
-                //   AppAssets.homeIcon,
-                //   color: AppColors.primaryColor,
-                // ),
+
                 label: '',
                 isSelected: selectedIndex == 0,
               ),
               _builtBottomNavBarItem(
-                unSelectedIcon: SvgPicture.asset(
-                  AppAssets.searchIcon,
-                ),
+                unSelectedIcon: SvgPicture.asset(AppAssets.searchIcon),
                 selectedIcon: SvgPicture.asset(
                   AppAssets.searchIcon,
                   colorFilter: ColorFilter.mode(
                     AppColors.primaryColor,
                     BlendMode.srcIn,
                   ),
-                ),            // selectedIcon: Image.asset(
-                //   // AppAssets.searchIcon,
-                //   // color: AppColors.primaryColor,
-                // ),
-                // unSelectedIcon: Image.asset(AppAssets.searchIcon),
+                ),
                 label: '',
                 isSelected: selectedIndex == 1,
               ),
               _builtBottomNavBarItem(
-                unSelectedIcon: SvgPicture.asset(
-                  AppAssets.exploreIcon,
-                ),
+                unSelectedIcon: SvgPicture.asset(AppAssets.exploreIcon),
                 selectedIcon: SvgPicture.asset(
                   AppAssets.exploreIcon,
                   colorFilter: ColorFilter.mode(
@@ -89,18 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.srcIn,
                   ),
                 ),
-                // selectedIcon: Image.asset(
-                //   AppAssets.exploreIcon,
-                //   color: AppColors.primaryColor,
-                // ),
-                // unSelectedIcon: Image.asset(AppAssets.exploreIcon),
+
                 label: '',
                 isSelected: selectedIndex == 2,
               ),
               _builtBottomNavBarItem(
-                unSelectedIcon: SvgPicture.asset(
-              AppAssets.profileIcon,
-              ),
+                unSelectedIcon: SvgPicture.asset(AppAssets.profileIcon),
                 selectedIcon: SvgPicture.asset(
                   AppAssets.profileIcon,
                   colorFilter: ColorFilter.mode(
@@ -108,21 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.srcIn,
                   ),
                 ),
-                // unSelectedIcon: Image.asset(AppAssets.profileIcon),
-                // selectedIcon: Image.asset(
-                //   AppAssets.profileIcon,
-                //   color: AppColors.primaryColor,
-                // ),
                 label: '',
                 isSelected: selectedIndex == 3,
               ),
-          
             ],
           ),
         ),
       ),
       body: tabList[selectedIndex],
-
     );
   }
 
