@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../utils/app_colors.dart';
 typedef OnChanged =void Function(String)?;
 typedef OnValidator =String? Function(String?)?;

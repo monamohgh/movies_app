@@ -7,5 +7,5 @@ class AppRoutes {
   static const String forgetPasswordRouteName='forget_password_screen';
   static const String homeRouteName='home_screen';
   static const String detailsRouteName='details_screen';
-  static const String updateProfileRouteName='home_screen';
+  static const String updateProfileRouteName='update_profile_screen';
 }
