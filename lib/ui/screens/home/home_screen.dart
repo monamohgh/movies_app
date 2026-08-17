@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: Container(
-        padding: EdgeInsetsGeometry.symmetric(
+        padding: EdgeInsets.symmetric(
           vertical: context.height * .01,
           horizontal: context.width * .01,
         ),
