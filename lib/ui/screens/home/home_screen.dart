@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/ui/screens/home/tabs/explore/explore_tab.dart';
+import 'package:movies_app/ui/screens/home/tabs/home/home_tab.dart';
+import 'package:movies_app/ui/screens/home/tabs/profile/profile_tab.dart';
+import 'package:movies_app/ui/screens/home/tabs/search/search_tab.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/app_language_provider.dart';
@@ -13,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  // List<Widget> tabList = [HomeTab(), SearchTab(), ExploreTab(), ProfileTab()];
+  List<Widget> tabList = [HomeTab(), SearchTab(), ExploreTab(), ProfileTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         ],
       ),
-      // body: tabList[selectedIndex],
+      body: tabList[selectedIndex],
 
     );
   }
