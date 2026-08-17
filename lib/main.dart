@@ -21,7 +21,15 @@ class MyApp extends StatelessWidget {
      debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.homeRouteName,
       routes: {
+        // AppRoutes.splashScreenRouteName: (context) =>
+        // AppRoutes.welcomeScreenRouteName: (context) =>
+        // AppRoutes.onBoardingScreenName: (context) =>
+        // AppRoutes.loginRouteName: (context) =>
+        // AppRoutes.registerRouteName: (context) =>
+        // AppRoutes.forgetPasswordRouteName: (context) =>
         AppRoutes.homeRouteName: (context) => HomeScreen(),
+        // AppRoutes.detailsRouteName: (context) =>
+        // AppRoutes.updateProfileRouteName: (context) =>
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
