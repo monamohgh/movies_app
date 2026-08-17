@@ -10,6 +10,8 @@ class AppAssets {
   static const String avatar7='assets/images/avatar7.png';
   static const String avatar8='assets/images/avatar8.png';
   static const String avatar9='assets/images/avatar9.png';
+  static const String splashScreen='assets/images/splash_screen.png';
+  static const String brandingImage='assets/images/branding_image.png';
   static const String clockIcon='assets/icons/clock_icon.svg';
   static const String egyptIcon='assets/icons/egypt_icon.svg';
   static const String emailIcon='assets/icons/email_icon.svg';
