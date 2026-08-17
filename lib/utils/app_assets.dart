@@ -10,6 +10,22 @@ class AppAssets {
   static const String avatar7='assets/images/avatar7.png';
   static const String avatar8='assets/images/avatar8.png';
   static const String avatar9='assets/images/avatar9.png';
-  static const String egypt='assets/images/egypt.png';
-  static const String us='assets/images/US.png';
+  static const String clockIcon='assets/icons/clock_icon.svg';
+  static const String egyptIcon='assets/icons/egypt_icon.svg';
+  static const String emailIcon='assets/icons/email_icon.svg';
+  static const String exploreIcon='assets/icons/explore_icon.svg';
+  static const String eyeOffIcon='assets/icons/eye_off_icon.svg';
+  static const String favoriteIcon='assets/icons/favorite_icon.svg';
+  static const String fileIcon='assets/icons/file_icon.svg';
+  static const String googleIcon='assets/icons/google_icon.svg';
+  static const String homeIcon='assets/icons/home_icon.svg';
+  static const String nameIcon='assets/icons/name_icon.svg';
+  static const String passwordIcon='assets/icons/password_icon.svg';
+  static const String phoneIcon='assets/icons/phone_icon.svg';
+  static const String profileIcon='assets/icons/profile_icon.svg';
+  static const String saveIcon='assets/icons/save_icon.svg';
+  static const String searchIcon='assets/icons/search_icon.svg';
+  static const String starIcon='assets/icons/star_icon.svg';
+  static const String usIcon='assets/icons/us_icon.svg';
+  static const String watchListIcon='assets/icons/watch_list_icon.svg';
 }
