@@ -26,11 +26,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.blackColor,
       ),
      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.splashScreenRouteName,
+      initialRoute: AppRoutes.onBoardingScreenName,
       routes: {
 
          AppRoutes.splashScreenRouteName: (context) =>SplashScreen(),
-        // AppRoutes.welcomeScreenRouteName: (context) =>
         AppRoutes.onBoardingScreenName: (context) =>OnboardingScreen(),
         // AppRoutes.loginRouteName: (context) =>
         // AppRoutes.registerRouteName: (context) =>
