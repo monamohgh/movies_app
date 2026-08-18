@@ -5,6 +5,9 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
+import 'ui/screens/onboarding/onboarding_screen.dart';
+import 'ui/screens/splash/splash_screen.dart';
+
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -23,11 +26,12 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.blackColor,
       ),
      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.homeRouteName,
+      initialRoute: AppRoutes.splashScreenRouteName,
       routes: {
-        // AppRoutes.splashScreenRouteName: (context) =>
+
+         AppRoutes.splashScreenRouteName: (context) =>SplashScreen(),
         // AppRoutes.welcomeScreenRouteName: (context) =>
-        // AppRoutes.onBoardingScreenName: (context) =>
+        AppRoutes.onBoardingScreenName: (context) =>OnboardingScreen(),
         // AppRoutes.loginRouteName: (context) =>
         // AppRoutes.registerRouteName: (context) =>
         // AppRoutes.forgetPasswordRouteName: (context) =>
