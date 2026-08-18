@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.blackColor,
       ),
      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.onBoardingScreenName,
+      initialRoute: AppRoutes.splashScreenRouteName,
       routes: {
 
          AppRoutes.splashScreenRouteName: (context) =>SplashScreen(),
