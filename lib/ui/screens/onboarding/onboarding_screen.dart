@@ -64,11 +64,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 width: double.infinity,
                 height: double.infinity,
                 errorBuilder: (context, error, stackTrace) => Container(
-                  color: Colors.black,
-                  child: const Center(
+                  color: AppColors.blackColor,
+                  child:  Center(
                     child: Icon(
                       Icons.image_not_supported_outlined,
-                      color: Colors.grey,
+                      color: AppColors.darkBlackColor,
                       size: 50,
                     ),
                   ),

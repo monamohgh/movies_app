@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/utils/app_assets.dart';
-// تأكدي من استيراد ملف الـ Assets الخاص بكِ هنا
-// import 'path_to_your_app_assets.dart';
+import 'package:movies_app/utils/app_colors.dart';
+
 
 class MovieGridAnimation extends StatefulWidget {
   const MovieGridAnimation({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class MovieGridAnimation extends StatefulWidget {
 class _MovieGridAnimationState extends State<MovieGridAnimation> {
   final ScrollController _scrollController = ScrollController();
 
-  // قائمة تحتوي على مسارات الصور من كلاس AppAssets
+
   final List<String> movieImages = [
     AppAssets.onboar1,
     AppAssets.onboar2,
@@ -77,8 +77,10 @@ class _MovieGridAnimationState extends State<MovieGridAnimation> {
               movieImages[index % movieImages.length],
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => Container(
-                color: Colors.amber.shade900,
-                child: const Icon(Icons.movie, color: Colors.white),
+                color: AppColors.redColor,
+                child:  Icon(
+                    Icons.movie,
+                    color: AppColors.whiteColor),
               ),
             ),
           );
