@@ -94,4 +94,27 @@ class AppStyles {
     color: AppColors.primaryColor,
     fontWeight: FontWeight.w900,
   );
+  static TextStyle bold22White = GoogleFonts.inter(
+    fontSize: 22,
+    color: AppColors.whiteColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle regular13LightGrey = GoogleFonts.inter(
+    fontSize: 13,
+    color: AppColors.lightGreyColor,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle bold16Black = GoogleFonts.inter(
+    fontSize: 16,
+    color: AppColors.blackColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle bold16Primary = GoogleFonts.inter(
+    fontSize: 16,
+    color: AppColors.primaryColor,
+    fontWeight: FontWeight.bold,
+  );
 }

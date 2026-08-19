@@ -1,5 +1,9 @@
+import 'package:easy_localization/easy_localization.dart'
+    show StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:movies_app/utils/app_colors.dart';
+import 'package:movies_app/utils/app_styles.dart';
+import 'package:movies_app/utils/size_utils.dart';
 
 class OnboardingContentContainer extends StatelessWidget {
   final String title;
@@ -20,12 +24,15 @@ class OnboardingContentContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-      decoration:  BoxDecoration(
-        color:  AppColors.blackColor,
+      padding: EdgeInsets.symmetric(
+        horizontal: context.width * 0.05,
+        vertical: context.height * 0.03,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.blackColor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
+          topLeft: Radius.circular(context.width * 0.06),
+          topRight: Radius.circular(context.width * 0.06),
         ),
       ),
       child: Column(
@@ -34,68 +41,68 @@ class OnboardingContentContainer extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color:  AppColors.whiteColor,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppStyles.bold22White,
           ),
-          const SizedBox(height: 12),
+
+          SizedBox(
+            height: context.height * 0.015,
+          ),
+
           Text(
             description,
             textAlign: TextAlign.center,
-            style:  TextStyle(
-              color:  AppColors.lightGreyColor,
-              fontSize: 13,
+            style: AppStyles.regular13LightGrey.copyWith(
               height: 1.4,
             ),
           ),
-          const SizedBox(height: 20),
+
+          SizedBox(
+            height: context.height * 0.025,
+          ),
 
           SizedBox(
             width: double.infinity,
-            height: 48,
+            height: context.height * 0.06,
             child: ElevatedButton(
               onPressed: onNextPressed,
               style: ElevatedButton.styleFrom(
-                backgroundColor:  AppColors.primaryColor,
+                backgroundColor: AppColors.primaryColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(
+                    context.width * 0.03,
+                  ),
                 ),
               ),
               child: Text(
                 buttonText,
-                style:  TextStyle(
-                  color:  AppColors.blackColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: AppStyles.bold16Black,
               ),
             ),
           ),
 
           if (onBackPressed != null) ...[
-            const SizedBox(height: 10),
+            SizedBox(
+              height: context.height * 0.0125,
+            ),
+
             SizedBox(
               width: double.infinity,
-              height: 48,
+              height: context.height * 0.06,
               child: OutlinedButton(
                 onPressed: onBackPressed,
                 style: OutlinedButton.styleFrom(
-                  side:  BorderSide(
-                      color:  AppColors.primaryColor
+                  side: BorderSide(
+                    color: AppColors.primaryColor,
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(
+                      context.width * 0.03,
+                    ),
                   ),
                 ),
-                child:  Text(
-                  'Back',
-                  style: TextStyle(
-                    color:AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+                child: Text(
+                  'back'.tr(),
+                  style: AppStyles.bold16Primary,
                 ),
               ),
             ),
