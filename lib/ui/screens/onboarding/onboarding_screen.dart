@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/model/onboarding_model.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:movies_app/utils/size_utils.dart';
 import 'widget/movie_grid_animation.dart';
 import 'widget/onboarding_content_container.dart';
 
@@ -99,8 +100,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               title: _pages[_currentIndex].title,
               description: _pages[_currentIndex].description,
               buttonText: _currentIndex == 0
-                  ? 'Explore Now'
-                  : (_currentIndex == _pages.length - 1 ? 'Finish' : 'Next'),
+                  ? 'explore_now'.tr()
+                  : (_currentIndex == _pages.length - 1 ? 'finish'.tr() : 'next'.tr()),
               onNextPressed: () {
                 if (_currentIndex == _pages.length - 1) {
                   _finishOnboarding();

@@ -74,7 +74,7 @@ class _MovieGridAnimationState extends State<MovieGridAnimation> {
           return ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
-              movieImages[index % movieImages.length], // 👈 استخدام القائمة هنا
+              movieImages[index % movieImages.length],
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => Container(
                 color: Colors.amber.shade900,

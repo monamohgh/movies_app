@@ -1,7 +1,11 @@
+import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
 import 'package:flutter/material.dart';
+import 'package:movies_app/utils/app_colors.dart';
+import 'package:movies_app/utils/size_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
+import '../../../utils/app_styles.dart' show AppStyles;
 import '../home/home_screen.dart' show HomeScreen;
 import '../onboarding/onboarding_screen.dart' show OnboardingScreen;
 
@@ -96,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -106,24 +110,27 @@ class _SplashScreenState extends State<SplashScreen>
                   animation: _controller,
                   builder: (context, child) {
                     return SizedBox(
-                      width: 140,
-                      height: 140,
+                      width: context.width * 0.36,
+                      height: context.height * 0.36,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           CustomPaint(
-                            size: const Size(140, 140),
+                            size:  Size(
+                              context.width * 0.36,
+                              context.height * 0.17,
+                            ),
                             painter: CirclePainter(
                               progress: _circleDrawAnimation.value,
-                              color: const Color(0xFFFFCC00),
+                              color: AppColors.primaryColor,
                             ),
                           ),
                           SlideTransition(
                             position: _triangleSlideAnimation,
-                            child: const Icon(
+                            child:  Icon(
                               Icons.play_arrow_rounded,
-                              size: 70,
-                              color: Color(0xFFFFCC00),
+                              size: context.width * 0.18,
+                              color: AppColors.primaryColor,
                             ),
                           ),
                         ],
@@ -134,34 +141,26 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 24.0),
+              padding:  EdgeInsets.only(
+                  bottom:  context.height * 0.03,),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children:[
                   Text(
-                    'Route',
-                    style: TextStyle(
-                      color: Color(0xFFFFCC00),
-                      fontSize: 32,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 2,
-                    ),
+                    'route'.tr(),
+                    style:
+                      AppStyles.bold20Primary,
+
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: context.height * 0.005,),
                   Text(
-                    'Training center & innovation space',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 10,
-                    ),
+                    'training_center'.tr(),
+                    style:AppStyles.bold20LightGrey,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: context.height * 0.02,),
                   Text(
-                    'Supervised by Mohamed Nabil',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
+                    'supervised_by'.tr(),
+                    style:AppStyles.regular14White,
                   ),
                 ],
               ),
