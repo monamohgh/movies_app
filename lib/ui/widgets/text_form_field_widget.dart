@@ -11,6 +11,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Color? fillColor;
   final String? hintText;
   final String? labelText;
+  final String? initialValue;
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
   final TextStyle? style;
@@ -23,8 +24,14 @@ class TextFormFieldWidget extends StatelessWidget {
   final OnValidator validator;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final TextStyle? textStyle;
+
   const TextFormFieldWidget({
-    super.key,
+
+    super
+
+        .
+    key,
     this.maxLines = 1,
     required this.borderColor,
     this.radius,
@@ -40,14 +47,18 @@ class TextFormFieldWidget extends StatelessWidget {
     this.suffixIcon,
     this.onChanged,
     this.controller,
+    this.textStyle,
+    this.initialValue,
+    this.obscureText=false,
+    this.keyboardType,
     this.validator,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
   });
+
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: controller == null ? initialValue : null,
       cursorColor: cursorColor ?? AppColors.whiteColor,
       cursorErrorColor: cursorColor ?? AppColors.whiteColor,
       style: style ?? TextStyle(color: AppColors.whiteColor),
@@ -92,7 +103,10 @@ class TextFormFieldWidget extends StatelessWidget {
   }) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius),
-      borderSide: BorderSide(color: borderColor, width: 2),
+      borderSide: BorderSide(
+        color: borderColor,
+        width: 2,
+      ),
     );
   }
 }

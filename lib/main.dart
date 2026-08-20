@@ -7,9 +7,12 @@ import 'package:movies_app/ui/screens/forget_password.dart';
 import 'package:movies_app/ui/screens/home/home_screen.dart';
 import 'package:movies_app/ui/screens/login_screen.dart';
 import 'package:movies_app/ui/screens/register_screen.dart';
+import 'package:movies_app/ui/screens/updateprofile/update_profile.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_routes.dart';
 import 'l10n/app_localizations.dart';
+
+
 
 void main() {
   runApp(
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.onBoardingScreenName: (context) => OnboardingScreen(),
         AppRoutes.homeRouteName: (context) => HomeScreen(),
         // AppRoutes.detailsRouteName: (context) =>
-        // AppRoutes.updateProfileRouteName: (context) =>
+         AppRoutes.updateProfileRouteName: (context) =>UpdateProfileScreen(),
         AppRoutes.loginRouteName: (context) => const LoginScreen(),
         AppRoutes.registerRouteName: (context) => const RegisterScreen(),
         AppRoutes.forgetPasswordRouteName: (context) =>const ForgetPasswordScreen(),

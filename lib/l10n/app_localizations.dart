@@ -410,6 +410,13 @@ abstract class AppLocalizations {
   /// **'Please enter a valid email address'**
   String get please_enter_valid_email;
 
+  /// No description provided for @choose_avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Avatar'**
+  String get choose_avatar;
+
+  /// No description provided for @training_center.
   /// No description provided for @please_enter_name.
   ///
   /// In en, this message translates to:

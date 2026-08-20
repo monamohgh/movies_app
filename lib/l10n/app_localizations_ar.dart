@@ -169,6 +169,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get please_enter_valid_email => 'الرجاء إدخال بريد إلكتروني صحيح';
 
   @override
+  String get choose_avatar => 'اختر الصورة الرمزية';
+
+  @override
   String get please_enter_name => 'الرجاء إدخال الاسم';
 
   @override
