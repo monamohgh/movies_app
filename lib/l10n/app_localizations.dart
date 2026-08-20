@@ -391,6 +391,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update Data'**
   String get update_data;
+
+  /// No description provided for @route.
+  ///
+  /// In en, this message translates to:
+  /// **'Route'**
+  String get route;
+
+  /// No description provided for @training_center.
+  ///
+  /// In en, this message translates to:
+  /// **'Training center & innovation space'**
+  String get training_center;
+
+  /// No description provided for @supervised_by.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervised by Mohamed Nabil'**
+  String get supervised_by;
+
+  /// No description provided for @explore_vast_collection.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.'**
+  String get explore_vast_collection;
 }
 
 class _AppLocalizationsDelegate

@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
      debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.splashScreenRouteName,
       routes: {
-
-         AppRoutes.splashScreenRouteName: (context) =>SplashScreen(),
+        AppRoutes.splashScreenRouteName: (context) =>SplashScreen(),
         AppRoutes.onBoardingScreenName: (context) =>OnboardingScreen(),
         // AppRoutes.loginRouteName: (context) =>
         // AppRoutes.registerRouteName: (context) =>

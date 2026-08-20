@@ -5,6 +5,8 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 
+import '../../../../l10n/app_localizations.dart';
+
 class OnboardingContentContainer extends StatelessWidget {
   final String title;
   final String description;
@@ -101,7 +103,7 @@ class OnboardingContentContainer extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'back'.tr(),
+                  AppLocalizations.of(context)!.back,
                   style: AppStyles.bold16Primary,
                 ),
               ),

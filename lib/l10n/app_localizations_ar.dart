@@ -158,4 +158,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get update_data => 'تحديث البيانات';
+
+  @override
+  String get route => 'Route';
+
+  @override
+  String get training_center => 'Training center & innovation space';
+
+  @override
+  String get supervised_by => 'Supervised by Mohamed Nabil';
+
+  @override
+  String get explore_vast_collection =>
+      'استكشف مجموعة ضخمة من الأفلام بجميع الجودات والأنواع. اعثر بسهولة على فيلمك المفضل القادم.';
 }

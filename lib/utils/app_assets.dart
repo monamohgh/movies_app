@@ -35,5 +35,5 @@ class AppAssets {
   static const String onboar3='assets/images/onboard3.png';
   static const String onboar4='assets/images/onboard4.png';
   static const String onboar5='assets/images/onboard5.png';
-  static const String onboar6='assets/images/onboard5.png';
+  static const String onboar6='assets/images/onboard6.png';
 }

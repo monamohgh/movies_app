@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class AppLanguageProvider extends ChangeNotifier{
 //todo:data
-  String appLanguage='en';
+  String appLanguage='ar';
   void changeLanguage(String newLanguage){
     //todo:newLanguage=user select it
     if(appLanguage==newLanguage){

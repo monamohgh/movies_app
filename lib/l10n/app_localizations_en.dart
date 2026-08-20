@@ -158,4 +158,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get update_data => 'Update Data';
+
+  @override
+  String get route => 'Route';
+
+  @override
+  String get training_center => 'Training center & innovation space';
+
+  @override
+  String get supervised_by => 'Supervised by Mohamed Nabil';
+
+  @override
+  String get explore_vast_collection =>
+      'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.';
 }

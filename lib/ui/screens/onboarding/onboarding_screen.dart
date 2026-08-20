@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/model/onboarding_model.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
-  final List<OnboardingModel> _pages = OnboardingModel.onboardingPages;
 
   @override
   void dispose() {
@@ -38,21 +38,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final pages = OnboardingModel.getOnboardingPages(context);
     return Scaffold(
       backgroundColor:AppColors.blackColor,
       body: Stack(
         children: [
-
           PageView.builder(
             controller: _pageController,
-            itemCount: _pages.length,
+            itemCount: pages.length,
             onPageChanged: (index) {
               setState(() {
                 _currentIndex = index;
               });
             },
             itemBuilder: (context, index) {
-              final page = _pages[index];
+              final page = pages[index];
 
               if (page.isFirstPage) {
                 return const MovieGridAnimation();
@@ -97,13 +97,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: OnboardingContentContainer(
-              title: _pages[_currentIndex].title,
-              description: _pages[_currentIndex].description,
+              title: pages[_currentIndex].title,
+              description: pages[_currentIndex].description,
               buttonText: _currentIndex == 0
-                  ? 'explore_now'.tr()
-                  : (_currentIndex == _pages.length - 1 ? 'finish'.tr() : 'next'.tr()),
+                  ? AppLocalizations.of(context)!.explore_now
+                  : (_currentIndex == pages.length - 1 ?  AppLocalizations.of(context)!.finish :  AppLocalizations.of(context)!.next),
               onNextPressed: () {
-                if (_currentIndex == _pages.length - 1) {
+                if (_currentIndex == pages.length - 1) {
                   _finishOnboarding();
                 } else {
                   _pageController.nextPage(

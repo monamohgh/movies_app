@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
 import 'package:flutter/material.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
+import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/size_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -146,22 +148,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children:[
-                  Text(
-                    'route'.tr(),
-                    style:
-                      AppStyles.bold20Primary,
-
-                  ),
-                  SizedBox(height: context.height * 0.005,),
-                  Text(
-                    'training_center'.tr(),
-                    style:AppStyles.bold20LightGrey,
-                  ),
-                  SizedBox(height: context.height * 0.02,),
-                  Text(
-                    'supervised_by'.tr(),
-                    style:AppStyles.regular14White,
-                  ),
+                 Image.asset(AppAssets.brandingImage)
                 ],
               ),
             ),
