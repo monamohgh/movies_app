@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/blocs/app_language_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:movies_app/providers/app_language_provider.dart';
 import 'package:movies_app/ui/screens/forget_password.dart';
 import 'package:movies_app/ui/screens/home/home_screen.dart';
 import 'package:movies_app/ui/screens/login_screen.dart';
@@ -11,8 +11,8 @@ import 'l10n/app_localizations.dart';
 
 void main() {
   runApp(
-    BlocProvider(
-      create: (context) => AppLanguageCubit(),
+    ChangeNotifierProvider(
+      create: (context) => AppLanguageProvider(),
       child: const MyApp(),
     ),
   );
@@ -23,31 +23,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppLanguageCubit, Locale>(
-      builder: (context, currentLocale) {
-        return MaterialApp(
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.blackColor,
+    var languageProvider = Provider.of<AppLanguageProvider>(context);
 
-          ),
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.loginRouteName,
-          routes: {
-            // AppRoutes.splashScreenRouteName: (context) => const SplashScreen(),
-            // AppRoutes.welcomeScreenRouteName: (context) => const WelcomeScreen(),
-            // AppRoutes.onBoardingScreenName: (context) => const OnBoardingScreen(),
-             AppRoutes.loginRouteName: (context) => const LoginScreen(),
-             AppRoutes.registerRouteName: (context) => const RegisterScreen(),
-             AppRoutes.forgetPasswordRouteName: (context) => const ForgetPasswordScreen(),
-            AppRoutes.homeRouteName: (context) => const HomeScreen(),
-            // AppRoutes.detailsRouteName: (context) => const DetailsScreen(),
-            // AppRoutes.updateProfileRouteName: (context) => const UpdateProfileScreen(),
-          },
-          locale: currentLocale,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-        );
+    return MaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: AppColors.blackColor),
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.loginRouteName,
+      routes: {
+        AppRoutes.loginRouteName: (context) => const LoginScreen(),
+        AppRoutes.registerRouteName: (context) => const RegisterScreen(),
+        AppRoutes.forgetPasswordRouteName: (context) =>
+            const ForgetPasswordScreen(),
+        AppRoutes.homeRouteName: (context) => const HomeScreen(),
       },
+      locale: Locale(languageProvider.appLanguage),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

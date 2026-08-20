@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies_app/blocs/app_language_bloc.dart';
+import 'package:movies_app/providers/app_language_provider.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/widgets/elevated_button_widget.dart';
 import 'package:movies_app/ui/widgets/text_form_field_widget.dart';
@@ -23,7 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool get _obscureText => true;
   bool _isPasswordObscured = true;
 
   @override
@@ -36,8 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
-    var languageCubit = context.watch<AppLanguageCubit>();
-    bool isArabic = languageCubit.state.languageCode == 'ar';
+    var languageProvider = context.watch<AppLanguageProvider>();
+    bool isArabic = languageProvider.appLanguage == 'ar';
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
@@ -54,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 SizedBox(height: context.height * 0.03),
 
-                ///Logo
                 Image.asset(
                   AppAssets.movieLogoImage,
                   height: context.height * 0.15,
@@ -63,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.04),
 
-                ///Email
                 TextFormFieldWidget(
                   controller: _emailController,
                   borderColor: AppColors.darkGreyColor,
@@ -93,7 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.02),
 
-                ///Password
                 TextFormFieldWidget(
                   controller: _passwordController,
                   borderColor: AppColors.darkGreyColor,
@@ -131,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
 
-                ///Password
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -150,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.02),
 
-                ///Button login
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 14,
@@ -173,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.02),
 
-                ///Create account link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -198,7 +191,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.02),
 
-                /// Or
                 Row(
                   children: [
                     Expanded(
@@ -223,7 +215,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.025),
 
-                ///Login with google button
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 12,
@@ -250,12 +241,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: context.height * 0.03),
 
-                ///Toggle Switch
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: GestureDetector(
                     onTap: () {
-                      languageCubit.changeLanguage(isArabic ? 'en' : 'ar');
+                      languageProvider.changeLanguage(isArabic ? 'en' : 'ar');
                     },
                     child: Container(
                       width: 90,
@@ -270,16 +260,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: Stack(
                         children: [
-                          ///Animated Yellow circle
                           AnimatedAlign(
                             duration: const Duration(milliseconds: 250),
                             curve: Curves.easeInOut,
                             alignment: isArabic
                                 ? Alignment.centerRight
-                                ///  EGY flag from right (Writing)
                                 : Alignment.centerLeft,
-
-                            /// USA flag from left  (Writing)
                             child: Container(
                               width: 35,
                               height: 35,
@@ -289,11 +275,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              /// USA flag left
                               SizedBox(
                                 width: 35,
                                 height: 35,
@@ -308,8 +292,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-
-                              /// EGY flag Right
                               SizedBox(
                                 width: 30,
                                 height: 30,

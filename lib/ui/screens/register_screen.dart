@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies_app/blocs/app_language_bloc.dart';
+import 'package:movies_app/providers/app_language_provider.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/widgets/elevated_button_widget.dart';
 import 'package:movies_app/ui/widgets/text_form_field_widget.dart';
@@ -46,7 +46,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   static final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
-  // Standard  Design Screen Dimensions
   static const double _designWidth = 375.0;
   static const double _designHeight = 812.0;
 
@@ -54,7 +53,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_pageController == null) {
-      // Responsive avatar viewport calculation
       double responsiveItemWidth = 182 * (context.width / _designWidth);
       double viewportFraction = responsiveItemWidth / context.width;
 
@@ -79,8 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
-    var languageCubit = context.watch<AppLanguageCubit>();
-    bool isArabic = languageCubit.state.languageCode == 'ar';
+    var languageProvider = context.watch<AppLanguageProvider>();
+    bool isArabic = languageProvider.appLanguage == 'ar';
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
@@ -104,7 +102,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             key: _formKey,
             child: Column(
               children: [
-                // Avatar Horizontal Scroll Section
                 SizedBox(
                   height: 161 * (context.height / _designHeight),
                   child: PageView.builder(
@@ -155,7 +152,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.02),
 
-                // Name Field
                 TextFormFieldWidget(
                   controller: _nameController,
                   borderColor: AppColors.darkGreyColor,
@@ -178,7 +174,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.015),
 
-                // Email Field
                 TextFormFieldWidget(
                   controller: _emailController,
                   borderColor: AppColors.darkGreyColor,
@@ -205,7 +200,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.015),
 
-                // Password Field
                 TextFormFieldWidget(
                   controller: _passwordController,
                   borderColor: AppColors.darkGreyColor,
@@ -245,7 +239,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.015),
 
-                // Confirm Password Field
                 TextFormFieldWidget(
                   controller: _confirmPasswordController,
                   borderColor: AppColors.darkGreyColor,
@@ -281,7 +274,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return localizations.please_enter_password;
                     }
                     if (value != _passwordController.text) {
-                      return localizations.confirm_password;
+                      return localizations.please_enter_password;
                     }
                     return null;
                   },
@@ -289,7 +282,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.015),
 
-                // Phone Number Field
                 TextFormFieldWidget(
                   controller: _phoneController,
                   borderColor: AppColors.darkGreyColor,
@@ -313,7 +305,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.025),
 
-                // Register Button
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 14,
@@ -352,12 +343,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: context.height * 0.015),
 
-                // Language Toggle
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: GestureDetector(
                     onTap: () {
-                      languageCubit.changeLanguage(isArabic ? 'en' : 'ar');
+                      languageProvider.changeLanguage(isArabic ? 'en' : 'ar');
                     },
                     child: Container(
                       width: 90 * (context.width / _designWidth),

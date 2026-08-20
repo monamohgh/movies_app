@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:movies_app/providers/app_language_provider.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/widgets/elevated_button_widget.dart';
 import 'package:movies_app/ui/widgets/text_form_field_widget.dart';
@@ -30,6 +32,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
+
+    context.watch<AppLanguageProvider>();
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
