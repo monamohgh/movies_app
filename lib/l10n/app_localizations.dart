@@ -398,6 +398,12 @@ abstract class AppLocalizations {
   /// **'Route'**
   String get route;
 
+  /// No description provided for @choose_avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Avatar'**
+  String get choose_avatar;
+
   /// No description provided for @training_center.
   ///
   /// In en, this message translates to:

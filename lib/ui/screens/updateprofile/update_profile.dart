@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/screens/updateprofile/picker_avatar_screen.dart';
 import 'package:movies_app/ui/widgets/elevated_button_widget.dart';
 import 'package:movies_app/ui/widgets/text_form_field_widget.dart';
@@ -63,7 +64,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     ),
     ),
     title: Text(
-    'Update Profile',
+      AppLocalizations.of(context)!.update_data,
     style:AppStyles.regular15Primary,
     ),
     ),
@@ -136,7 +137,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             // TODO: Navigate to reset password
           },
           child: Text(
-            'Reset Password',
+            AppLocalizations.of(context)!.reset_password,
             style: AppStyles.regular16White,
           ),
         ),
@@ -150,7 +151,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         verticalPadding: context.height * 0.018,
         radius: context.width * 0.03,
         child: Text(
-          'Delete Account',
+          AppLocalizations.of(context)!.delete_account,
           style: AppStyles.regular16White,
         ),
       ),
@@ -165,7 +166,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         verticalPadding: context.height * 0.018,
         radius: context.width * 0.03,
         child: Text(
-            'Update Data',
+            AppLocalizations.of(context)!.update_data,
             style: AppStyles.bold16Black
         ),
       ),

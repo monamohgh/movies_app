@@ -163,6 +163,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get route => 'Route';
 
   @override
+  String get choose_avatar => 'Choose Avatar';
+
+  @override
   String get training_center => 'Training center & innovation space';
 
   @override

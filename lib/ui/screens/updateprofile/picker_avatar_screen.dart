@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/screens/updateprofile/widget/avatar_picker.dart';
 import 'package:movies_app/ui/widgets/elevated_button_widget.dart';
 import 'package:movies_app/utils/app_colors.dart';
@@ -55,7 +56,7 @@ class _PickAvatarScreenState extends State<PickAvatarScreen> {
         ),
         centerTitle: true,
         title: Text(
-            'Pick Avatar',
+            AppLocalizations.of(context)!.pick_avatar,
             style: AppStyles.regular15Primary
         ),
       ),
@@ -99,9 +100,10 @@ class _PickAvatarScreenState extends State<PickAvatarScreen> {
               backgroundColor: AppColors.primaryColor,
               verticalPadding: context.height * 0.018,
               radius: context.width * 0.03,
-              child: Text(
-                  'Choose Avatar',
-                  style: AppStyles.bold16Black
+              child:
+              Text(
+                  AppLocalizations.of(context)!.choose_avatar,
+                 style: AppStyles.bold16Black
               ),
             ),
 
