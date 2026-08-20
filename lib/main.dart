@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'ui/screens/onboarding/onboarding_screen.dart';
 import 'ui/screens/splash/splash_screen.dart';
+import 'ui/screens/updateprofile/update_profile.dart';
 
 
 void main() {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         // AppRoutes.forgetPasswordRouteName: (context) =>
         AppRoutes.homeRouteName: (context) => HomeScreen(),
         // AppRoutes.detailsRouteName: (context) =>
-        // AppRoutes.updateProfileRouteName: (context) =>
+         AppRoutes.updateProfileRouteName: (context) =>UpdateProfileScreen(),
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

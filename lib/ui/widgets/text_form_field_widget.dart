@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
-typedef OnChanged =void Function(String)?;
-typedef OnValidator =String? Function(String?)?;
+
+typedef OnChanged = void Function(String)?;
+typedef OnValidator = String? Function(String?)?;
+
 class TextFormFieldWidget extends StatelessWidget {
   final double? radius;
   final Color borderColor;
@@ -9,6 +11,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Color? fillColor;
   final String? hintText;
   final String? labelText;
+  final String? initialValue;
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
   final Widget? prefixIcon;
@@ -19,56 +22,79 @@ class TextFormFieldWidget extends StatelessWidget {
   final OnValidator validator;
   final TextInputType? keyboardType;
   final bool obscureText;
-  TextFormFieldWidget({super.key,  this.maxLines=1,required this.borderColor,this.radius,this.filled,this.fillColor,
-    this.hintText,this.labelText,this.hintStyle,this.labelStyle,
-    this.prefixIcon,this.suffixIcon,
-    this.onChanged,this.controller,
+  final TextStyle? textStyle;
+
+  TextFormFieldWidget({
+    super.key,
+    this.maxLines = 1,
+    required this.borderColor,
+    this.radius,
+    this.filled,
+    this.fillColor,
+    this.hintText,
+    this.labelText,
+    this.initialValue,
+    this.hintStyle,
+    this.labelStyle,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onChanged,
+    this.controller,
     this.validator,
-    this.keyboardType=TextInputType.text,
-    this.obscureText =false
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.textStyle
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: controller == null ? initialValue : null,
       decoration: InputDecoration(
         enabledBorder: builtDecorationBorder(
-            borderColor:borderColor
-            ,radius: radius??16),
-        focusedBorder:builtDecorationBorder(
-            borderColor:borderColor
-            ,radius: radius??16) ,
+          borderColor: borderColor,
+          radius: radius ?? 16,
+        ),
+        focusedBorder: builtDecorationBorder(
+          borderColor: borderColor,
+          radius: radius ?? 16,
+        ),
         errorBorder: builtDecorationBorder(
-            borderColor:AppColors.redColor
-            ,radius: radius??16),
-        focusedErrorBorder:builtDecorationBorder(
-            borderColor:AppColors.redColor
-            ,radius: radius??16) ,
+          borderColor: AppColors.redColor,
+          radius: radius ?? 16,
+        ),
+        focusedErrorBorder: builtDecorationBorder(
+          borderColor: AppColors.redColor,
+          radius: radius ?? 16,
+        ),
         filled: filled,
         fillColor: fillColor,
-        hintText:hintText ,
+        hintText: hintText,
         hintStyle: hintStyle,
         labelText: labelText,
-        labelStyle:labelStyle,
-        prefixIcon:prefixIcon ,
+        labelStyle: labelStyle,
+        prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
       maxLines: maxLines,
-      controller:controller ,
-      onChanged:onChanged ,
-      validator:validator ,
-      keyboardType:keyboardType ,
+      controller: controller,
+      onChanged: onChanged,
+      validator: validator,
+      keyboardType: keyboardType,
       obscureText: obscureText,
-
     );
   }
-  OutlineInputBorder builtDecorationBorder({required double radius,required Color borderColor}){
+
+  OutlineInputBorder builtDecorationBorder({
+    required double radius,
+    required Color borderColor,
+  }) {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radius),
-        borderSide: BorderSide(
-          color:borderColor ,
-          width: 2,
-        )
+      borderRadius: BorderRadius.circular(radius),
+      borderSide: BorderSide(
+        color: borderColor,
+        width: 2,
+      ),
     );
   }
 }
