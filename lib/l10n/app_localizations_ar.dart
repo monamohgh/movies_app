@@ -100,13 +100,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get password => 'كلمة المرور';
 
   @override
-  String get forget_password => 'هل نسيت كلمة المرور؟';
+  String get forget_password => 'هل نسيت كلمة المرور';
 
   @override
   String get login => 'تسجيل الدخول';
 
   @override
-  String get dont_have_account => 'ليس لديك حساب؟';
+  String get dont_have_account => 'ليس لديك حساب';
 
   @override
   String get or => 'أو';
@@ -130,7 +130,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get create_account => 'إنشاء حساب';
 
   @override
-  String get already_have_account => 'لديك حساب بالفعل؟';
+  String get already_have_account => 'لديك حساب بالفعل';
 
   @override
   String get verify_email => 'تأكيد البريد الإلكتروني';
@@ -176,5 +176,5 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get explore_vast_collection =>
-      'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.';
+      'استكشف مجموعة ضخمة من الأفلام بجميع الجودات والأنواع. اعثر بسهولة على فيلمك المفضل القادم.';
 }

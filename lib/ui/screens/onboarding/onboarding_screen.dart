@@ -1,0 +1,129 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
+import 'package:movies_app/model/onboarding_model.dart';
+import 'package:movies_app/utils/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:movies_app/utils/size_utils.dart';
+import 'widget/movie_grid_animation.dart';
+import 'widget/onboarding_content_container.dart';
+
+
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
+  int _currentIndex = 0;
+
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _finishOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isFirstTime', false);
+
+    if (!mounted) return;
+    //todo:go to loginscreen
+    Navigator.of(context).pushReplacementNamed('/login');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final pages = OnboardingModel.getOnboardingPages(context);
+    return Scaffold(
+      backgroundColor:AppColors.blackColor,
+      body: Stack(
+        children: [
+          PageView.builder(
+            controller: _pageController,
+            itemCount: pages.length,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              final page = pages[index];
+
+              if (page.isFirstPage) {
+                return const MovieGridAnimation();
+              }
+
+              return Image.asset(
+                page.imagePath,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  color: AppColors.blackColor,
+                  child:  Center(
+                    child: Icon(
+                      Icons.image_not_supported_outlined,
+                      color: AppColors.darkBlackColor,
+                      size: 50,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+
+
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColors.blackColor.withOpacity(0.1),
+                    AppColors.blackColor.withOpacity(0.85),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: OnboardingContentContainer(
+              title: pages[_currentIndex].title,
+              description: pages[_currentIndex].description,
+              buttonText: _currentIndex == 0
+                  ? AppLocalizations.of(context)!.explore_now
+                  : (_currentIndex == pages.length - 1 ?  AppLocalizations.of(context)!.finish :  AppLocalizations.of(context)!.next),
+              onNextPressed: () {
+                if (_currentIndex == pages.length - 1) {
+                  _finishOnboarding();
+                } else {
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              },
+              onBackPressed: _currentIndex == 0
+                  ? null
+                  : () {
+                _pageController.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

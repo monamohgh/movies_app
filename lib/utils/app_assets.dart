@@ -31,4 +31,10 @@ class AppAssets {
   static const String starIcon='assets/icons/star_icon.svg';
   static const String usIcon='assets/icons/us_icon.svg';
   static const String watchListIcon='assets/icons/watch_list_icon.svg';
+  static const String onboar1='assets/images/Movies Posters.png';
+  static const String onboar2='assets/images/onboard2.png';
+  static const String onboar3='assets/images/onboard3.png';
+  static const String onboar4='assets/images/onboard4.png';
+  static const String onboar5='assets/images/onboard5.png';
+  static const String onboar6='assets/images/onboard6.png';
 }
