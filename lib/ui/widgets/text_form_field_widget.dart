@@ -14,6 +14,8 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? initialValue;
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
+  final TextStyle? style;
+  final Color? cursorColor;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final int? maxLines;
@@ -22,6 +24,23 @@ class TextFormFieldWidget extends StatelessWidget {
   final OnValidator validator;
   final TextInputType? keyboardType;
   final bool obscureText;
+  const TextFormFieldWidget({
+    super.key,
+    this.maxLines = 1,
+    required this.borderColor,
+    this.radius,
+    this.filled,
+    this.fillColor,
+    this.hintText,
+    this.labelText,
+    this.style,
+    this.hintStyle,
+    this.labelStyle,
+    this.cursorColor,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onChanged,
+    this.controller,
   final TextStyle? textStyle;
 
   TextFormFieldWidget({
@@ -44,12 +63,17 @@ class TextFormFieldWidget extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.textStyle
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: controller == null ? initialValue : null,
+      cursorColor: cursorColor ?? AppColors.whiteColor,
+      cursorErrorColor: cursorColor ?? AppColors.whiteColor,
+      style: style ?? TextStyle(color: AppColors.whiteColor),
       decoration: InputDecoration(
         enabledBorder: builtDecorationBorder(
           borderColor: borderColor,
@@ -95,6 +119,8 @@ class TextFormFieldWidget extends StatelessWidget {
         color: borderColor,
         width: 2,
       ),
+      borderRadius: BorderRadius.circular(radius),
+      borderSide: BorderSide(color: borderColor, width: 2),
     );
   }
 }

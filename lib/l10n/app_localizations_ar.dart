@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get find_your_next_movie => 'اعثر على فيلمك المفضل القادم هنا';
+  String get find_your_next_movie => 'ابحث عن فيلمك المفضل التالي هنا';
 
   @override
   String get get_access_to_huge_library =>
@@ -23,30 +23,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get discovers_movies_from_every_genre =>
-      'اكتشف أفلامًا من كل تصنيف وبجميع الجودات المتاحة. اعثر على شيء جديد ومثير لمشاهدته كل يوم.';
+      'اكتشف أفلاماً من كل نوع، بجميع الجودات المتاحة. اعثر على شيء جديد ومثير لمشاهدته كل يوم.';
 
   @override
   String get next => 'التالي';
 
   @override
-  String get back => 'رجوع';
+  String get back => 'السابق';
 
   @override
-  String get explore_all_genres => 'استكشف جميع التصنيفات';
+  String get explore_all_genres => 'استكشف جميع الأنواع';
 
   @override
   String get create_watchlists => 'أنشئ قوائم مشاهدة';
 
   @override
   String get save_movies_to_your_watchlists =>
-      'احفظ الأفلام في قائمة المشاهدة لمتابعة ما تريد مشاهدته لاحقًا. استمتع بالأفلام بجودات وتصنيفات متنوعة.';
+      'احفظ الأفلام في قائمة المشاهدة الخاصة بك لمتابعة ما تريد مشاهدته لاحقاً. استمتع بالأفلام بجودات وأنواع مختلفة.';
 
   @override
-  String get rate_review_learn => 'قيّم، راجع، وتعلّم';
+  String get rate_review_learn => 'قَيِّم، وراجع، وتعلَّم';
 
   @override
   String get share_your_thoughts =>
-      'شارك أفكارك حول الأفلام التي شاهدتها. تعمّق في تفاصيل الأفلام وساعد الآخرين على اكتشاف أفلام رائعة بمراجعاتك.';
+      'شارك أفكارك حول الأفلام التي شاهدتها. تعمق في تفاصيل الأفلام وساعد الآخرين على اكتشاف أفلام رائعة بمراجعاتك.';
 
   @override
   String get start_watching_now => 'ابدأ المشاهدة الآن';
@@ -61,7 +61,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get screen_shots => 'لقطات الشاشة';
 
   @override
-  String get similar => 'أفلام مشابهة';
+  String get similar => 'مشابه ';
 
   @override
   String get summary => 'الملخص';
@@ -86,6 +86,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get animation => 'رسوم متحركة';
+
+  @override
+  String get please_enter_email => 'الرجاء إدخال البريد الإلكتروني';
+
+  @override
+  String get please_enter_password => 'الرجاء إدخال كلمة المرور';
 
   @override
   String get email => 'البريد الإلكتروني';
@@ -139,7 +145,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get watch_list => 'قائمة المشاهدة';
 
   @override
-  String get history => 'سجل المشاهدة';
+  String get history => 'السجل';
 
   @override
   String get exit => 'خروج';
@@ -160,16 +166,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get update_data => 'تحديث البيانات';
 
   @override
-  String get route => 'Route';
+  String get please_enter_valid_email => 'الرجاء إدخال بريد إلكتروني صحيح';
 
   @override
   String get choose_avatar => 'اختر الصورة الرمزية';
 
   @override
-  String get training_center => 'Training center & innovation space';
+  String get please_enter_name => 'الرجاء إدخال الاسم';
 
   @override
-  String get supervised_by => 'Supervised by Mohamed Nabil';
+  String get please_enter_phone => 'الرجاء إدخال رقم الهاتف';
 
   @override
   String get explore_vast_collection =>

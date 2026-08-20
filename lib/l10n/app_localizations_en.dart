@@ -88,6 +88,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get animation => 'Animation';
 
   @override
+  String get please_enter_email => 'Please enter the email';
+
+  @override
+  String get please_enter_password => 'Please enter the password';
+
+  @override
   String get email => 'Email';
 
   @override
@@ -160,16 +166,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get update_data => 'Update Data';
 
   @override
-  String get route => 'Route';
+  String get please_enter_valid_email => 'Please enter a valid email address';
 
   @override
   String get choose_avatar => 'Choose Avatar';
 
   @override
-  String get training_center => 'Training center & innovation space';
+  String get please_enter_name => 'Please enter name';
 
   @override
-  String get supervised_by => 'Supervised by Mohamed Nabil';
+  String get please_enter_phone => 'Please enter phone';
 
   @override
   String get explore_vast_collection =>
