@@ -421,6 +421,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter phone'**
   String get please_enter_phone;
+
+  /// No description provided for @explore_vast_collection.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.'**
+  String get explore_vast_collection;
 }
 
 class _AppLocalizationsDelegate

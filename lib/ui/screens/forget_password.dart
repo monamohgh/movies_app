@@ -59,7 +59,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: context.height * 0.02),
-
                 /// Forget Password image
                 Image.asset(
                   AppAssets.forgetPassword,

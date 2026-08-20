@@ -328,7 +328,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      localizations.already_have_account,
+                      '${localizations.already_have_account}?',
+
                       style: AppStyles.regular14White,
                     ),
                     TextButton(

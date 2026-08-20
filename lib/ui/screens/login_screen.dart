@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                     child: Text(
-                      localizations.forget_password,
+                      '${localizations.forget_password}?',
                       style: AppStyles.regular14Primary,
                     ),
                   ),
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      localizations.dont_have_account,
+                      '${localizations.dont_have_account}?',
                       style: AppStyles.regular14White,
                     ),
                     TextButton(

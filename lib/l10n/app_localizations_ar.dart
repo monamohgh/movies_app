@@ -173,4 +173,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get please_enter_phone => 'الرجاء إدخال رقم الهاتف';
+
+  @override
+  String get explore_vast_collection =>
+      'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.';
 }
