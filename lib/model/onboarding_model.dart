@@ -1,4 +1,3 @@
-  import 'package:easy_localization/easy_localization.dart';
   import 'package:flutter/cupertino.dart';
   import 'package:movies_app/utils/app_assets.dart';
 

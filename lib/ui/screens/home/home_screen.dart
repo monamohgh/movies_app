@@ -5,8 +5,6 @@ import 'package:movies_app/ui/screens/home/tabs/home/home_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/profile/profile_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/search/search_tab.dart';
 import 'package:movies_app/utils/size_utils.dart';
-import 'package:provider/provider.dart';
-import '../../../providers/app_language_provider.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 
@@ -23,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var languageProvider = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: Container(
@@ -54,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.srcIn,
                   ),
                 ),
-
                 label: '',
                 isSelected: selectedIndex == 0,
               ),
@@ -79,7 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.srcIn,
                   ),
                 ),
-
                 label: '',
                 isSelected: selectedIndex == 2,
               ),

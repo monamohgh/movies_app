@@ -24,6 +24,8 @@
 "horror":"Horror",
 "fantasy":"Fantasy",
 "animation":"Animation",
+ "please_enter_email": "Please enter the email",
+  "please_enter_password": "Please enter the password",
 "email":"Email",
 "password":"Password",
 "forget_password":"Forget Password",
@@ -48,9 +50,9 @@
 "reset_password":"Reset Password",
 "delete_account":"Delete Account",
 "update_data":"Update Data",
-"route": "Route",
- "training_center": "Training center & innovation space",
- "supervised_by": "Supervised by Mohamed Nabil",
+ "please_enter_valid_email": "Please enter a valid email address",
+   "please_enter_name": "Please enter name",
+   "please_enter_phone": "Please enter phone",
  "explore_vast_collection": "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease."
 
 

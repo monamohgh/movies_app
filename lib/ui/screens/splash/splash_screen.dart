@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/utils/app_assets.dart';
@@ -6,7 +5,6 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/size_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
-
 import '../../../utils/app_styles.dart' show AppStyles;
 import '../home/home_screen.dart' show HomeScreen;
 import '../onboarding/onboarding_screen.dart' show OnboardingScreen;
