@@ -11,7 +11,6 @@ class AppStyles {
   static TextStyle semi20Black = GoogleFonts.inter(
     fontSize: 20,
     color: AppColors.blackColor,
-    fontWeight: FontWeight.w700,
   );
   static TextStyle semi20Primary = GoogleFonts.inter(
     fontSize: 20,
@@ -20,7 +19,7 @@ class AppStyles {
   );
   static TextStyle bold24White = GoogleFonts.inter(
     fontSize: 24,
-    color: AppColors.blackColor,
+    color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
   static TextStyle regular20White = GoogleFonts.inter(
@@ -31,7 +30,6 @@ class AppStyles {
   static TextStyle regular16White = GoogleFonts.inter(
     fontSize: 16,
     color: AppColors.whiteColor,
-    fontWeight: FontWeight.w400,
   );
   static TextStyle regular15White = GoogleFonts.inter(
     fontSize: 15,
@@ -88,10 +86,8 @@ class AppStyles {
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
-  static TextStyle black14Primary = GoogleFonts.inter(
-    ///black heere means =>w900
-    fontSize: 14,
-    color: AppColors.primaryColor,
-    fontWeight: FontWeight.w900,
+  static TextStyle black20 = GoogleFonts.inter(
+    fontSize: 20,
+    color: AppColors.blackColor,
   );
 }

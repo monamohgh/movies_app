@@ -88,6 +88,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get animation => 'Animation';
 
   @override
+  String get please_enter_email => 'Please enter the email';
+
+  @override
+  String get please_enter_password => 'Please enter the password';
+
+  @override
   String get email => 'Email';
 
   @override
@@ -158,4 +164,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get update_data => 'Update Data';
+
+  @override
+  String get please_enter_valid_email => 'Please enter a valid email address';
+
+  @override
+  String get please_enter_name => 'Please enter name';
+
+  @override
+  String get please_enter_phone => 'Please enter phone';
 }

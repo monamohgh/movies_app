@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/ui/screens/home/tabs/explore/explore_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/home/home_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/profile/profile_tab.dart';
 import 'package:movies_app/ui/screens/home/tabs/search/search_tab.dart';
 import 'package:movies_app/utils/size_utils.dart';
-import 'package:provider/provider.dart';
-import '../../../providers/app_language_provider.dart';
+
+import '../../../blocs/app_language_bloc.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 
@@ -23,7 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var languageProvider = Provider.of<AppLanguageProvider>(context);
+    var languageBloc = context.watch<AppLanguageCubit>();
+
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: Container(
@@ -54,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.srcIn,
                   ),
                 ),
-
                 label: '',
                 isSelected: selectedIndex == 0,
               ),
@@ -79,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.srcIn,
                   ),
                 ),
-
                 label: '',
                 isSelected: selectedIndex == 2,
               ),
