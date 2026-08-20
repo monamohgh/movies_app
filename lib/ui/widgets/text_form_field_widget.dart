@@ -24,8 +24,14 @@ class TextFormFieldWidget extends StatelessWidget {
   final OnValidator validator;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final TextStyle? textStyle;
+
   const TextFormFieldWidget({
-    super.key,
+
+    super
+
+        .
+    key,
     this.maxLines = 1,
     required this.borderColor,
     this.radius,
@@ -41,31 +47,13 @@ class TextFormFieldWidget extends StatelessWidget {
     this.suffixIcon,
     this.onChanged,
     this.controller,
-  final TextStyle? textStyle;
-
-  TextFormFieldWidget({
-    super.key,
-    this.maxLines = 1,
-    required this.borderColor,
-    this.radius,
-    this.filled,
-    this.fillColor,
-    this.hintText,
-    this.labelText,
+    this.textStyle,
     this.initialValue,
-    this.hintStyle,
-    this.labelStyle,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.onChanged,
-    this.controller,
+    this.obscureText=false,
+    this.keyboardType,
     this.validator,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
-    this.textStyle
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +107,6 @@ class TextFormFieldWidget extends StatelessWidget {
         color: borderColor,
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(radius),
-      borderSide: BorderSide(color: borderColor, width: 2),
     );
   }
 }
