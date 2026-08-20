@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/model/onboarding_model.dart';
 import 'package:movies_app/utils/app_colors.dart';
+import 'package:movies_app/utils/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movies_app/utils/size_utils.dart';
 import 'widget/movie_grid_animation.dart';
@@ -30,10 +31,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _finishOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isFirstTime', false);
-
     if (!mounted) return;
     //todo:go to loginscreen
-    Navigator.of(context).pushReplacementNamed('/login');
+    Navigator.pushReplacementNamed(context, AppRoutes.loginRouteName);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/providers/app_language_provider.dart';
@@ -281,7 +282,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
 
                 SizedBox(height: context.height * 0.015),
-
                 TextFormFieldWidget(
                   controller: _phoneController,
                   borderColor: AppColors.darkGreyColor,
@@ -310,7 +310,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   verticalPadding: 14,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, AppRoutes.homeRouteName);
                     }
                   },
                   child: Text(
@@ -329,7 +329,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Text(
                       '${localizations.already_have_account}?',
-
                       style: AppStyles.regular14White,
                     ),
                     TextButton(

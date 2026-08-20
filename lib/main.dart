@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         AppRoutes.loginRouteName: (context) => const LoginScreen(),
         AppRoutes.registerRouteName: (context) => const RegisterScreen(),
         AppRoutes.forgetPasswordRouteName: (context) =>const ForgetPasswordScreen(),
-
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
