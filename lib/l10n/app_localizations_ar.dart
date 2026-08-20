@@ -169,13 +169,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get please_enter_valid_email => 'الرجاء إدخال بريد إلكتروني صحيح';
 
   @override
-  String get choose_avatar => 'اختر الصورة الرمزية';
-
-  @override
   String get please_enter_name => 'الرجاء إدخال الاسم';
 
   @override
   String get please_enter_phone => 'الرجاء إدخال رقم الهاتف';
+
+  @override
+  String get route => 'Route';
+
+  @override
+  String get choose_avatar => 'اختر الصورة الرمزية';
+
+  @override
+  String get training_center => 'Training center & innovation space';
+
+  @override
+  String get supervised_by => 'Supervised by Mohamed Nabil';
 
   @override
   String get explore_vast_collection =>

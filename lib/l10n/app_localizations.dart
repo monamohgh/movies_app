@@ -410,13 +410,6 @@ abstract class AppLocalizations {
   /// **'Please enter a valid email address'**
   String get please_enter_valid_email;
 
-  /// No description provided for @choose_avatar.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose Avatar'**
-  String get choose_avatar;
-
-  /// No description provided for @training_center.
   /// No description provided for @please_enter_name.
   ///
   /// In en, this message translates to:
@@ -428,6 +421,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter phone'**
   String get please_enter_phone;
+
+  /// No description provided for @route.
+  ///
+  /// In en, this message translates to:
+  /// **'Route'**
+  String get route;
+
+  /// No description provided for @choose_avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Avatar'**
+  String get choose_avatar;
+
+  /// No description provided for @training_center.
+  ///
+  /// In en, this message translates to:
+  /// **'Training center & innovation space'**
+  String get training_center;
+
+  /// No description provided for @supervised_by.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervised by Mohamed Nabil'**
+  String get supervised_by;
 
   /// No description provided for @explore_vast_collection.
   ///

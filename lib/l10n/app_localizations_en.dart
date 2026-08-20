@@ -169,13 +169,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get please_enter_valid_email => 'Please enter a valid email address';
 
   @override
-  String get choose_avatar => 'Choose Avatar';
-
-  @override
   String get please_enter_name => 'Please enter name';
 
   @override
   String get please_enter_phone => 'Please enter phone';
+
+  @override
+  String get route => 'Route';
+
+  @override
+  String get choose_avatar => 'Choose Avatar';
+
+  @override
+  String get training_center => 'Training center & innovation space';
+
+  @override
+  String get supervised_by => 'Supervised by Mohamed Nabil';
 
   @override
   String get explore_vast_collection =>
