@@ -325,7 +325,7 @@ class _LoginScreenState extends State<LoginScreen> {
       //todo:login
       try {
         //todo:1-show loading
-        DialogUtils.showLoading(context: context, loadingText: 'Loading...');
+        DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
         //todo:2-login FirebaseAuth
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
@@ -347,9 +347,9 @@ class _LoginScreenState extends State<LoginScreen> {
         //todo:6-show message=>success
         DialogUtils.showMessage(
           context: context,
-          message: 'Login Successfully',
-          title: 'Success',
-          positiveActionName: 'Ok',
+          message: AppLocalizations.of(context)!.login_successfully,
+          title:  AppLocalizations.of(context)!.success,
+          positiveActionName:  AppLocalizations.of(context)!.ok,
           positiveAction: () {
             Navigator.pushNamed(context, AppRoutes.homeRouteName);
           },
@@ -364,8 +364,8 @@ class _LoginScreenState extends State<LoginScreen> {
             context: context,
             message:
             'The supplied auth credential is incorrect, malformed or has expired.',
-            title: 'Error ',
-            positiveActionName: 'Ok',
+            title:  AppLocalizations.of(context)!.error,
+            positiveActionName:  AppLocalizations.of(context)!.ok,
           );
         }
       } catch (e) {
@@ -375,8 +375,8 @@ class _LoginScreenState extends State<LoginScreen> {
         DialogUtils.showMessage(
           context: context,
           message: e.toString(),
-          title: 'Error ',
-          positiveActionName: 'Ok',
+          title: AppLocalizations.of(context)!.error,
+          positiveActionName:AppLocalizations.of(context)!.ok,
         );
       }
     }
@@ -384,7 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void signInWithGoogle() async {
     try {
       // 1. إظهار مؤشر التحميل
-      DialogUtils.showLoading(context: context, loadingText: 'Loading...');
+      DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
       await GoogleSignIn().signOut();
 
       // 2. بدء عملية تسجيل الدخول عبر Google
@@ -446,8 +446,8 @@ class _LoginScreenState extends State<LoginScreen> {
         DialogUtils.showMessage(
           context: context,
           message: e.toString(),
-          title: 'Error',
-          positiveActionName: 'Ok',
+          title: AppLocalizations.of(context)!.error,
+          positiveActionName: AppLocalizations.of(context)!.ok,
         );
       }
     }

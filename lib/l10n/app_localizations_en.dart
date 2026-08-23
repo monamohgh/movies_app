@@ -200,6 +200,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register_successfully => 'Register Successfully';
 
   @override
+  String get login_successfully => 'Login Successfully';
+
+  @override
   String get success => 'Success';
 
   @override

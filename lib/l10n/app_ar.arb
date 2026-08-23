@@ -61,6 +61,7 @@
  "ok":"موافق",
   "waiting":"الانتظار",
   "register_successfully":"تم التسجيل بنجاح",
+ "login_successfully":"تم تسجيل الدخول بنجاح",
   "success":"نجاح",
   "the_password_weak":"كلمة المرور ضعيفة",
   "error":"خطأ",
@@ -70,7 +71,5 @@
   "something_went_wrong":"حدث خطأ",
  "no_user_found":"لا يوجد مستخدم لهذا البريد",
  "the_email_not_valid":"البريد الإكتروني غير صالح"
-
-
 
 }

@@ -436,7 +436,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ///FirebaseAuth.instance=>create object from FirebaseAuth class
       try {
         //todo:1-show loading
-        DialogUtils.showLoading(context: context, loadingText: 'Waiting....');
+        DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.waiting}....');
         //todo:2-firebaseAuth
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text,
@@ -456,9 +456,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         DialogUtils.hideLoading(context: context);
         //todo:6-show message=>success
         DialogUtils.showMessage(context: context,
-          message: 'Register Successfully',
-          title: 'Success',
-          positiveActionName: 'Ok',
+          message: AppLocalizations.of(context)!.register_successfully,
+          title: AppLocalizations.of(context)!.success,
+          positiveActionName: AppLocalizations.of(context)!.ok,
           positiveAction: () {
             Navigator.pushNamed(context, AppRoutes.homeRouteName);
           },
@@ -470,9 +470,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           //todo:show message=>error
           DialogUtils.showMessage(
             context: context,
-            message: 'The password provided is too weak.',
-            title: 'Error ',
-            positiveActionName: 'Ok',
+            message:AppLocalizations.of(context)!.the_password_weak,
+            title:AppLocalizations.of(context)!.error,
+            positiveActionName: AppLocalizations.of(context)!.ok,
 
           );
         } else if (e.code == 'email-already-in-use') {
@@ -481,9 +481,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           //todo:show message=>error
           DialogUtils.showMessage(
             context: context,
-            message: 'The account already exists for that email.',
-            title: 'Error ',
-            positiveActionName: 'Ok',
+            message: AppLocalizations.of(context)!.the_account_already_exists,
+            title: AppLocalizations.of(context)!.error,
+            positiveActionName: AppLocalizations.of(context)!.ok,
           );
         }
       } catch (e) {

@@ -200,6 +200,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get register_successfully => 'تم التسجيل بنجاح';
 
   @override
+  String get login_successfully => 'تم تسجيل الدخول بنجاح';
+
+  @override
   String get success => 'نجاح';
 
   @override

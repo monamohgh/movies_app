@@ -122,7 +122,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   }
   Future<void> resetPassword({required String email}) async {
     //todo:show loading
-    DialogUtils.showLoading(context: context, loadingText: 'Loading...');
+    DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
     try {
       //todo:send request to firebase
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
@@ -131,8 +131,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       if(mounted)DialogUtils.hideLoading(context: context);
       if(mounted){
         DialogUtils.showMessage(context: context,
-          message: 'Reset link has been sent to your email!',
-          positiveActionName: 'OK',
+          message:AppLocalizations.of(context)!.reset_sent,
+          positiveActionName: AppLocalizations.of(context)!.ok,
           positiveAction: () {
             Navigator.pop(context); // العودة لشاشة تسجيل الدخول بعد النجاح
           },
@@ -141,11 +141,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     }on FirebaseAuthException catch(e){
       //todo:hide loading in error state
       if(mounted)DialogUtils.hideLoading(context: context);
-      String errorMessage = 'Something went wrong';
+      String errorMessage = AppLocalizations.of(context)!.something_went_wrong;
       if (e.code == 'user-not-found') {
-        errorMessage = 'No user found with this email.';
+        errorMessage =AppLocalizations.of(context)!.no_user_found ;
       } else if (e.code == 'invalid-email') {
-        errorMessage = 'The email address is not valid.';
+        errorMessage = AppLocalizations.of(context)!.the_email_not_valid;
       }
       //todo:show error message
       if(mounted){

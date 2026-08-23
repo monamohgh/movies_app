@@ -61,6 +61,7 @@
  "ok":"OK",
  "waiting":"Waiting",
  "register_successfully":"Register Successfully",
+ "login_successfully":"Login Successfully",
  "success":"Success",
  "the_password_weak":"The password provided is too weak",
  "error":"Error",

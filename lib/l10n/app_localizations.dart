@@ -470,6 +470,12 @@ abstract class AppLocalizations {
   /// **'Register Successfully'**
   String get register_successfully;
 
+  /// No description provided for @login_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Successfully'**
+  String get login_successfully;
+
   /// No description provided for @success.
   ///
   /// In en, this message translates to:
