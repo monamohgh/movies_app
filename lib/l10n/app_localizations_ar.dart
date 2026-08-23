@@ -189,4 +189,44 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get explore_vast_collection =>
       'استكشف مجموعة ضخمة من الأفلام بجميع الجودات والأنواع. اعثر بسهولة على فيلمك المفضل القادم.';
+
+  @override
+  String get ok => 'موافق';
+
+  @override
+  String get waiting => 'الانتظار';
+
+  @override
+  String get register_successfully => 'تم التسجيل بنجاح';
+
+  @override
+  String get login_successfully => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get success => 'نجاح';
+
+  @override
+  String get the_password_weak => 'كلمة المرور ضعيفة';
+
+  @override
+  String get error => 'خطأ';
+
+  @override
+  String get the_account_already_exists =>
+      ' هذا الحساب موجود مسبقا لهذا البريد الإلكتروني';
+
+  @override
+  String get loading => 'جاري التحميل';
+
+  @override
+  String get reset_sent => 'تم إرسال الرابط إالى بريدك';
+
+  @override
+  String get something_went_wrong => 'حدث خطأ';
+
+  @override
+  String get no_user_found => 'لا يوجد مستخدم لهذا البريد';
+
+  @override
+  String get the_email_not_valid => 'البريد الإكتروني غير صالح';
 }

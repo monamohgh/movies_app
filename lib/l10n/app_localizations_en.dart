@@ -189,4 +189,44 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get explore_vast_collection =>
       'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get waiting => 'Waiting';
+
+  @override
+  String get register_successfully => 'Register Successfully';
+
+  @override
+  String get login_successfully => 'Login Successfully';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get the_password_weak => 'The password provided is too weak';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get the_account_already_exists =>
+      'The account already exists for that email';
+
+  @override
+  String get loading => 'Loading';
+
+  @override
+  String get reset_sent => 'Reset link has been sent to your email';
+
+  @override
+  String get something_went_wrong => 'Something went wrong';
+
+  @override
+  String get no_user_found => 'No user found with this email';
+
+  @override
+  String get the_email_not_valid => 'The email address is not valid';
 }

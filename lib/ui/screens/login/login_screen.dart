@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/providers/app_language_provider.dart';
@@ -10,6 +12,11 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_routes.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+
+import '../../../blocs/user_bloc.dart';
+import '../../../firebae_utils.dart';
+import '../../../model/my_user.dart';
+import '../../../utils/dialog_utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -148,14 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 14,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        AppRoutes.homeRouteName,
-                      );
-                    }
-                  },
+                  onPressed: login,
                   child: Text(
                     localizations.login,
                     style: AppStyles.regular14White.copyWith(
@@ -218,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 12,
-                  onPressed: () {},
+                  onPressed: signInWithGoogle,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -320,4 +320,138 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+  void login() async {
+    if (_formKey.currentState!.validate() == true) {
+      //todo:login
+      try {
+        //todo:1-show loading
+        DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
+        //todo:2-login FirebaseAuth
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        //todo:3-read user from fireStore
+        var user = await FirebaseUtils.readUserFromFireStore(
+          credential.user?.uid ?? '',
+        );
+        if (user == null) {
+          return;
+        }
+        //todo:4-save user in bloc
+        context.read<UserCubit>().updateUser(user);
+
+        //todo:5-hide loading
+        DialogUtils.hideLoading(context: context);
+        //todo:6-show message=>success
+        DialogUtils.showMessage(
+          context: context,
+          message: AppLocalizations.of(context)!.login_successfully,
+          title:  AppLocalizations.of(context)!.success,
+          positiveActionName:  AppLocalizations.of(context)!.ok,
+          positiveAction: () {
+            Navigator.pushNamed(context, AppRoutes.homeRouteName);
+          },
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'invalid-credential') {
+          //todo:hide loading
+          DialogUtils.hideLoading(context: context);
+
+          //todo:show message=>error
+          DialogUtils.showMessage(
+            context: context,
+            message:
+            'The supplied auth credential is incorrect, malformed or has expired.',
+            title:  AppLocalizations.of(context)!.error,
+            positiveActionName:  AppLocalizations.of(context)!.ok,
+          );
+        }
+      } catch (e) {
+        //todo:hide loading
+        DialogUtils.hideLoading(context: context);
+        //todo:show message=>error
+        DialogUtils.showMessage(
+          context: context,
+          message: e.toString(),
+          title: AppLocalizations.of(context)!.error,
+          positiveActionName:AppLocalizations.of(context)!.ok,
+        );
+      }
+    }
+  }
+  void signInWithGoogle() async {
+    try {
+      // 1. إظهار مؤشر التحميل
+      DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
+      await GoogleSignIn().signOut();
+
+      // 2. بدء عملية تسجيل الدخول عبر Google
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+      // إذا أغلق المستخدم النافذة ولم يقتّر إيميل
+      if (gUser == null) {
+        if (mounted) DialogUtils.hideLoading(context: context);
+        return;
+      }
+
+      // 3. جلب تفاصيل التوثيق
+      final GoogleSignInAuthentication gAuth = await gUser.authentication;
+
+      // 4. إنشاء الـ Credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
+      );
+
+      // 5. تسجيل الدخول في Firebase
+      UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // 6. قراءة بيانات المستخدم من Firestore
+      var user = await FirebaseUtils.readUserFromFireStore(
+        userCredential.user?.uid ?? '',
+      );
+
+      // إذا كان أول دخول للمستخدم عبر جوجل، ننشئ له سجلاً في Firestore
+      if (user == null && userCredential.user != null) {
+        var newUser = MyUser(
+          id: userCredential.user!.uid,
+          name: userCredential.user!.displayName ?? '',
+          email: userCredential.user!.email ?? '',
+        );
+        await FirebaseUtils.addUserInFireStore(newUser);
+        user = newUser;
+      }
+
+      // التأكد من أن الـ Widget ما زالت موجودة قبل استخدام الـ context
+      if (!mounted) return;
+
+      // 7. حفظ المستخدم في الـ Cubit
+      if (user != null) {
+        context.read<UserCubit>().updateUser(user);
+      }
+
+      // 8. إخفاء التحميل
+      DialogUtils.hideLoading(context: context);
+
+      // 9. الانتقال لشاشة الـ Home
+      Navigator.of(
+        context,
+      ).pushNamedAndRemoveUntil(AppRoutes.homeRouteName, (route) => false);
+    } catch (e) {
+      if (mounted) {
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMessage(
+          context: context,
+          message: e.toString(),
+          title: AppLocalizations.of(context)!.error,
+          positiveActionName: AppLocalizations.of(context)!.ok,
+        );
+      }
+    }
+  }
+
 }
+

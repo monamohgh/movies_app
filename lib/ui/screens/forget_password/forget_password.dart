@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 
+import '../../../utils/dialog_utils.dart';
+
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
 
@@ -21,8 +24,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
 
-  static final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-
+  static final RegExp _emailRegex = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
   @override
   void dispose() {
     _emailController.dispose();
@@ -97,9 +101,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 14,
+                  //todo: reset password
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pop(context);
+                      //todo: Call reset logic
+                      resetPassword(email:_emailController.text);
                     }
                   },
                   child: Text(
@@ -113,5 +119,42 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         ),
       ),
     );
+  }
+  Future<void> resetPassword({required String email}) async {
+    //todo:show loading
+    DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
+    try {
+      //todo:send request to firebase
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
+      //todo:hide loading
+      //mounted is true=>success
+      if(mounted)DialogUtils.hideLoading(context: context);
+      if(mounted){
+        DialogUtils.showMessage(context: context,
+          message:AppLocalizations.of(context)!.reset_sent,
+          positiveActionName: AppLocalizations.of(context)!.ok,
+          positiveAction: () {
+            Navigator.pop(context); // العودة لشاشة تسجيل الدخول بعد النجاح
+          },
+        );
+      }
+    }on FirebaseAuthException catch(e){
+      //todo:hide loading in error state
+      if(mounted)DialogUtils.hideLoading(context: context);
+      String errorMessage = AppLocalizations.of(context)!.something_went_wrong;
+      if (e.code == 'user-not-found') {
+        errorMessage =AppLocalizations.of(context)!.no_user_found ;
+      } else if (e.code == 'invalid-email') {
+        errorMessage = AppLocalizations.of(context)!.the_email_not_valid;
+      }
+      //todo:show error message
+      if(mounted){
+        DialogUtils.showMessage(context: context, message: errorMessage,positiveActionName: 'OK');
+      }
+    }catch(e){
+      if (mounted) DialogUtils.hideLoading(context: context,);
+      if(mounted){      DialogUtils.showMessage(context: context, message: e.toString(),positiveActionName: 'Ok');
+      }
+    }
   }
 }
