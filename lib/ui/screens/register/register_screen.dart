@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/utils/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,11 @@ import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+
+import '../../../blocs/user_bloc.dart';
+import '../../../firebae_utils.dart';
+import '../../../model/my_user.dart';
+import '../../../utils/dialog_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -26,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
 
   bool _isPasswordObscured = true;
   bool _isConfirmPasswordObscured = true;
@@ -308,11 +315,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ElevatedButtonWidget(
                   backgroundColor: AppColors.primaryColor,
                   verticalPadding: 14,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                    Navigator.pushReplacementNamed(context, AppRoutes.homeRouteName);
-                    }
-                  },
+                  onPressed:register,
                   child: Text(
                     localizations.create_account,
                     style: AppStyles.regular14White.copyWith(
@@ -427,4 +430,76 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+  void register()async {
+    if (_formKey.currentState?.validate()==true){
+      //todo:register
+      ///FirebaseAuth.instance=>create object from FirebaseAuth class
+      try {
+        //todo:1-show loading
+        DialogUtils.showLoading(context: context, loadingText: 'Waiting....');
+        //todo:2-firebaseAuth
+        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        MyUser myUser=MyUser(
+            name: _nameController.text,
+            email: _emailController.text,
+            id: credential.user?.uid??'');
+        //todo:3-save user in  firestore
+        await FirebaseUtils.addUserInFireStore(myUser);
+
+
+        //todo:4-save user  bloc
+        context.read<UserCubit>().updateUser(myUser);
+        //todo:5-hide loading
+        DialogUtils.hideLoading(context: context);
+        //todo:6-show message=>success
+        DialogUtils.showMessage(context: context,
+          message: 'Register Successfully',
+          title: 'Success',
+          positiveActionName: 'Ok',
+          positiveAction: () {
+            Navigator.pushNamed(context, AppRoutes.homeRouteName);
+          },
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          //todo:hide loading
+          DialogUtils.hideLoading(context: context);
+          //todo:show message=>error
+          DialogUtils.showMessage(
+            context: context,
+            message: 'The password provided is too weak.',
+            title: 'Error ',
+            positiveActionName: 'Ok',
+
+          );
+        } else if (e.code == 'email-already-in-use') {
+          //todo:hide loading
+          DialogUtils.hideLoading(context: context);
+          //todo:show message=>error
+          DialogUtils.showMessage(
+            context: context,
+            message: 'The account already exists for that email.',
+            title: 'Error ',
+            positiveActionName: 'Ok',
+          );
+        }
+      } catch (e) {
+        //todo:hide loading
+        DialogUtils.hideLoading(context: context);
+        //todo:show message=>error
+        DialogUtils.showMessage(
+          context: context,
+          message: e.toString(),
+          // title: AppLocalizations.of(context)!.error,
+          positiveActionName: AppLocalizations.of(context)!.ok,
+        );
+      }
+
+    }
+  }
 }
+
+

@@ -451,6 +451,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.'**
   String get explore_vast_collection;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @waiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting'**
+  String get waiting;
+
+  /// No description provided for @register_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Successfully'**
+  String get register_successfully;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @the_password_weak.
+  ///
+  /// In en, this message translates to:
+  /// **'The password provided is too weak'**
+  String get the_password_weak;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @the_account_already_exists.
+  ///
+  /// In en, this message translates to:
+  /// **'The account already exists for that email'**
+  String get the_account_already_exists;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get loading;
+
+  /// No description provided for @reset_sent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset link has been sent to your email'**
+  String get reset_sent;
+
+  /// No description provided for @something_went_wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get something_went_wrong;
+
+  /// No description provided for @no_user_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No user found with this email'**
+  String get no_user_found;
+
+  /// No description provided for @the_email_not_valid.
+  ///
+  /// In en, this message translates to:
+  /// **'The email address is not valid'**
+  String get the_email_not_valid;
 }
 
 class _AppLocalizationsDelegate

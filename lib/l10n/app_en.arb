@@ -50,15 +50,24 @@
 "reset_password":"Reset Password",
 "delete_account":"Delete Account",
 "update_data":"Update Data",
- "please_enter_valid_email": "Please enter a valid email address",
-   "please_enter_name": "Please enter name",
-   "please_enter_phone": "Please enter phone",
+"please_enter_valid_email": "Please enter a valid email address",
+"please_enter_name": "Please enter name",
+"please_enter_phone": "Please enter phone",
 "route": "Route",
 "choose_avatar":"Choose Avatar",
  "training_center": "Training center & innovation space",
  "supervised_by": "Supervised by Mohamed Nabil",
- "explore_vast_collection": "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease."
-
-
-
+ "explore_vast_collection": "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.",
+ "ok":"OK",
+ "waiting":"Waiting",
+ "register_successfully":"Register Successfully",
+ "success":"Success",
+ "the_password_weak":"The password provided is too weak",
+ "error":"Error",
+ "the_account_already_exists":"The account already exists for that email",
+ "loading":"Loading",
+ "reset_sent":"Reset link has been sent to your email",
+ "something_went_wrong":"Something went wrong",
+ "no_user_found":"No user found with this email",
+ "the_email_not_valid":"The email address is not valid"
 }

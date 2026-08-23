@@ -54,8 +54,23 @@
   "please_enter_phone": "الرجاء إدخال رقم الهاتف",
   "update_data": "تحديث البيانات",
   "route": "Route",
-    "training_center": "Training center & innovation space",
-    "supervised_by": "Supervised by Mohamed Nabil",
-      "explore_now": "استكشف الآن",
-       "explore_vast_collection": "استكشف مجموعة ضخمة من الأفلام بجميع الجودات والأنواع. اعثر بسهولة على فيلمك المفضل القادم."
+  "training_center": "Training center & innovation space",
+  "supervised_by": "Supervised by Mohamed Nabil",
+ "explore_now": "استكشف الآن",
+  "explore_vast_collection": "استكشف مجموعة ضخمة من الأفلام بجميع الجودات والأنواع. اعثر بسهولة على فيلمك المفضل القادم.",
+ "ok":"موافق",
+  "waiting":"الانتظار",
+  "register_successfully":"تم التسجيل بنجاح",
+  "success":"نجاح",
+  "the_password_weak":"كلمة المرور ضعيفة",
+  "error":"خطأ",
+  "the_account_already_exists":" هذا الحساب موجود مسبقا لهذا البريد الإلكتروني",
+  "loading":"جاري التحميل",
+  "reset_sent":"تم إرسال الرابط إالى بريدك",
+  "something_went_wrong":"حدث خطأ",
+ "no_user_found":"لا يوجد مستخدم لهذا البريد",
+ "the_email_not_valid":"البريد الإكتروني غير صالح"
+
+
+
 }
