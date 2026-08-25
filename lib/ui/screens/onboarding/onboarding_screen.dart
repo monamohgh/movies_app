@@ -1,14 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/model/onboarding_model.dart';
 import 'package:movies_app/utils/app_colors.dart';
-import 'package:movies_app/utils/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:movies_app/utils/size_utils.dart';
 import 'widget/movie_grid_animation.dart';
 import 'widget/onboarding_content_container.dart';
-
+import 'package:movies_app/utils/app_routes.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -21,7 +18,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -31,16 +27,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _finishOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isFirstTime', false);
+
     if (!mounted) return;
     //todo:go to loginscreen
-    Navigator.pushReplacementNamed(context, AppRoutes.loginRouteName);
+    Navigator.of(context).pushReplacementNamed(AppRoutes.loginRouteName);
   }
 
   @override
   Widget build(BuildContext context) {
     final pages = OnboardingModel.getOnboardingPages(context);
     return Scaffold(
-      backgroundColor:AppColors.blackColor,
+      backgroundColor: AppColors.blackColor,
       body: Stack(
         children: [
           PageView.builder(
@@ -65,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: double.infinity,
                 errorBuilder: (context, error, stackTrace) => Container(
                   color: AppColors.blackColor,
-                  child:  Center(
+                  child: Center(
                     child: Icon(
                       Icons.image_not_supported_outlined,
                       color: AppColors.darkBlackColor,
@@ -76,7 +73,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               );
             },
           ),
-
 
           Positioned.fill(
             child: Container(
@@ -93,7 +89,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
 
-
           Align(
             alignment: Alignment.bottomCenter,
             child: OnboardingContentContainer(
@@ -101,7 +96,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               description: pages[_currentIndex].description,
               buttonText: _currentIndex == 0
                   ? AppLocalizations.of(context)!.explore_now
-                  : (_currentIndex == pages.length - 1 ?  AppLocalizations.of(context)!.finish :  AppLocalizations.of(context)!.next),
+                  : (_currentIndex == pages.length - 1
+                        ? AppLocalizations.of(context)!.finish
+                        : AppLocalizations.of(context)!.next),
               onNextPressed: () {
                 if (_currentIndex == pages.length - 1) {
                   _finishOnboarding();
@@ -115,11 +112,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onBackPressed: _currentIndex == 0
                   ? null
                   : () {
-                _pageController.previousPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              },
+                      _pageController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    },
             ),
           ),
         ],

@@ -8,4 +8,5 @@ class AppRoutes {
   static const String homeRouteName='home_screen';
   static const String detailsRouteName='details_screen';
   static const String updateProfileRouteName='update_profile_screen';
+  static const String movieDetails='movie_details_screen';
 }
