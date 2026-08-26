@@ -9,14 +9,40 @@ import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  const UpdateProfileScreen({super.key});
+  final String currentName;
+  final String currentPhone;
+  final String currentAvatar;
+
+  const UpdateProfileScreen({
+    super.key,
+    this.currentName = 'John Safwat',
+    this.currentPhone = '01200000000',
+    this.currentAvatar = AppAssets.avatar1,
+  });
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-  String selectedAvatar = AppAssets.avatar1;
+  late String selectedAvatar;
+  late TextEditingController nameController;
+  late TextEditingController phoneController;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedAvatar = widget.currentAvatar;
+    nameController = TextEditingController(text: widget.currentName);
+    phoneController = TextEditingController(text: widget.currentPhone);
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickAvatar() async {
     final result = await Navigator.push<String>(
@@ -34,7 +60,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   void _updateData() {
-    // TODO: Update user data
+    Navigator.pop(context, {
+      'name': nameController.text,
+      'phone': phoneController.text,
+      'avatar': selectedAvatar,
+    });
   }
 
   void _deleteAccount() {
@@ -51,7 +81,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            // TODO: navigate to home
             Navigator.pop(context);
           },
           icon: Icon(
@@ -67,7 +96,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.width * 0.05), 
+          padding: EdgeInsets.symmetric(horizontal: context.width * 0.05),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -82,11 +111,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                   ),
                 ),
-            
                 SizedBox(height: context.height * 0.03),
-            
+
                 TextFormFieldWidget(
-                  initialValue: 'John Safwat',
+                  controller: nameController,
                   textStyle: AppStyles.regular16White,
                   borderColor: AppColors.transparentColor,
                   filled: true,
@@ -94,11 +122,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   radius: context.width * 0.03,
                   prefixIcon: Icon(Icons.person, color: AppColors.whiteColor),
                 ),
-            
+
                 SizedBox(height: context.height * 0.02),
-            
+
                 TextFormFieldWidget(
-                  initialValue: '01200000000',
+                  controller: phoneController,
                   textStyle: AppStyles.regular16White,
                   borderColor: AppColors.transparentColor,
                   filled: true,
@@ -107,7 +135,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   keyboardType: TextInputType.phone,
                   prefixIcon: Icon(Icons.phone, color: AppColors.whiteColor),
                 ),
-            
+
                 SizedBox(height: context.height * 0.02),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -121,10 +149,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                   ),
                 ),
-            
-                SizedBox(
-                  height: context.height * .3,
-                ),
+
+                SizedBox(height: context.height * 0.2),
+
                 ElevatedButtonWidget(
                   onPressed: _deleteAccount,
                   backgroundColor: AppColors.redColor,
@@ -135,9 +162,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     style: AppStyles.regular16White,
                   ),
                 ),
-            
+
                 SizedBox(height: context.height * 0.015),
-            
+
                 ElevatedButtonWidget(
                   onPressed: _updateData,
                   backgroundColor: AppColors.primaryColor,
@@ -148,7 +175,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     style: AppStyles.bold16Black,
                   ),
                 ),
-            
+
                 SizedBox(height: context.height * 0.02),
               ],
             ),
