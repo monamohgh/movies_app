@@ -70,6 +70,6 @@
   "reset_sent":"تم إرسال الرابط إالى بريدك",
   "something_went_wrong":"حدث خطأ",
  "no_user_found":"لا يوجد مستخدم لهذا البريد",
- "the_email_not_valid":"البريد الإكتروني غير صالح"
-
+ "the_email_not_valid":"البريد الإكتروني غير صالح",
+"genres":"الأنواع"
 }

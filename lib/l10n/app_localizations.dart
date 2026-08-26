@@ -529,6 +529,8 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The email address is not valid'**
   String get the_email_not_valid;
+
+  String get genres;
 }
 
 class _AppLocalizationsDelegate

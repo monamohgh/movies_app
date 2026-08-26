@@ -12,20 +12,23 @@ import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;
 
-  const MovieDetailsScreen({super.key,  this.movieId=30});
+  const MovieDetailsScreen({super.key, this.movieId = 30});
 
   double scaleW(BuildContext context, double w) => (w / 430) * context.width;
   double scaleH(BuildContext context, double h) => (h / 932) * context.height;
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (context) =>
-          MovieDetailsCubit(DioManager())..loadMovieDetails(movieId),
+      MovieDetailsCubit(DioManager())..loadMovieDetails(movieId),
       child: Scaffold(
         backgroundColor: AppColors.blackColor,
         body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
@@ -166,7 +169,10 @@ class MovieDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {},
-                          child: Text('Watch', style: AppStyles.bold20White),
+                          child: Text(
+                            localizations.watch,
+                            style: AppStyles.bold20White,
+                          ),
                         ),
                       ),
                     ),
@@ -220,7 +226,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
                     /// Screen Shots Section
                     if (screenshots.isNotEmpty) ...[
-                      const TitleHeader(title: 'Screen Shots'),
+                      TitleHeader(title: localizations.screen_shots),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: scaleW(context, 16),
@@ -249,7 +255,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
                     /// Similar Movies Grid
                     if (suggestions.isNotEmpty) ...[
-                      const TitleHeader(title: 'Similar'),
+                      TitleHeader(title: localizations.similar.trim()),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: scaleW(context, 16),
@@ -259,12 +265,12 @@ class MovieDetailsScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.68,
-                                crossAxisSpacing: scaleW(context, 14),
-                                mainAxisSpacing: scaleH(context, 14),
-                              ),
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.68,
+                            crossAxisSpacing: scaleW(context, 14),
+                            mainAxisSpacing: scaleH(context, 14),
+                          ),
                           itemCount: suggestions.length,
                           itemBuilder: (context, index) {
                             final suggestion = suggestions[index];
@@ -279,7 +285,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     ],
 
                     /// Summary
-                    const TitleHeader(title: 'Summary'),
+                    TitleHeader(title: localizations.summary),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: scaleW(context, 16),
@@ -297,7 +303,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
                     /// Cast
                     if (movie.cast != null && movie.cast!.isNotEmpty) ...[
-                      const TitleHeader(title: 'Cast'),
+                      TitleHeader(title: localizations.cast),
                       ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -312,7 +318,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
                     /// Genres
                     if (movie.genres.isNotEmpty) ...[
-                      const TitleHeader(title: 'Genres'),
+                      TitleHeader(title:localizations.genres ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: scaleW(context, 16),

@@ -229,4 +229,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get the_email_not_valid => 'البريد الإكتروني غير صالح';
+
+  @override
+  String get genres => 'الأنواع';
 }
