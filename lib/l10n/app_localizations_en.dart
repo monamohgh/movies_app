@@ -231,5 +231,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get the_email_not_valid => 'The email address is not valid';
 
   @override
-  String get genres =>'Genres';
+  String get genres => 'Genres';
 }

@@ -530,6 +530,10 @@ abstract class AppLocalizations {
   /// **'The email address is not valid'**
   String get the_email_not_valid;
 
+  /// No description provided for @genres.
+  ///
+  /// In en, this message translates to:
+  /// **'Genres'**
   String get genres;
 }
 
