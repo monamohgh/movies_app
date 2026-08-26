@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/blocs/user_bloc.dart';
+import 'package:movies_app/ui/screens/home/tabs/profile/profile_tab.dart';
+import 'package:movies_app/ui/screens/movie_details/movie_details_screen.dart';
 import 'package:movies_app/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:movies_app/ui/screens/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -42,12 +44,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColors.blackColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.splashScreenRouteName,
+      initialRoute: AppRoutes.movieDetails,
       routes: {
         AppRoutes.splashScreenRouteName: (context) => SplashScreen(),
         AppRoutes.onBoardingScreenName: (context) => OnboardingScreen(),
         AppRoutes.homeRouteName: (context) => HomeScreen(),
-        // AppRoutes.detailsRouteName: (context) =>
+         AppRoutes.movieDetails: (context) => MovieDetailsScreen(),
+         AppRoutes.profile:(context) =>ProfileTab(),
          AppRoutes.updateProfileRouteName: (context) =>UpdateProfileScreen(),
         AppRoutes.loginRouteName: (context) => const LoginScreen(),
         AppRoutes.registerRouteName: (context) => const RegisterScreen(),
@@ -59,3 +62,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
