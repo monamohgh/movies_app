@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:movies_app/model/movie_details_model.dart';
 
-
 class DioManager {
   // ==================== Details API ====================
 
@@ -9,7 +8,7 @@ class DioManager {
     BaseOptions(
       baseUrl: 'https://movies-api.accel.li/api/v2/',
       connectTimeout: const Duration(seconds: 20),
-      receiveTimeout: const Duration(seconds: 20),
+      receiveTimeout: const Duration(seconds: 30),
     ),
   );
 
@@ -52,17 +51,13 @@ class DioManager {
     try {
       final response = await _dio.get(
         '/movie_suggestions.json',
-        queryParameters: {
-          'movie_id': movieId,
-        },
+        queryParameters: {'movie_id': movieId},
       );
 
       if (response.statusCode == 200 && response.data != null) {
         final List moviesList = response.data['data']['movies'] ?? [];
 
-        return moviesList
-            .map((e) => MovieSuggestion.fromJson(e))
-            .toList();
+        return moviesList.map((e) => MovieSuggestion.fromJson(e)).toList();
       } else {
         throw Exception('Failed to load suggestions');
       }
@@ -77,18 +72,13 @@ class DioManager {
     try {
       final response = await _dio.get(
         '/movie_parental_guides.json',
-        queryParameters: {
-          'movie_id': movieId,
-        },
+        queryParameters: {'movie_id': movieId},
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        final List guidesList =
-            response.data['data']['parental_guides'] ?? [];
+        final List guidesList = response.data['data']['parental_guides'] ?? [];
 
-        return guidesList
-            .map((e) => ParentalGuide.fromJson(e))
-            .toList();
+        return guidesList.map((e) => ParentalGuide.fromJson(e)).toList();
       } else {
         throw Exception('Failed to load parental guides');
       }
@@ -99,7 +89,11 @@ class DioManager {
 
   // ==================== Home Movies ====================
 
-  Future<List<dynamic>> fetchMovies({String? genre, String? sortBy, int limit = 20}) async {
+  Future<List<dynamic>> fetchMovies({
+    String? genre,
+    String? sortBy,
+    int limit = 20,
+  }) async {
     try {
       final response = await _homeDio.get(
         '/list_movies.json',
