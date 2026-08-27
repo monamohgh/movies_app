@@ -14,6 +14,8 @@ import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 
+import '../../../utils/data_store.dart';
+
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;
 
@@ -102,6 +104,24 @@ class MovieDetailsScreen extends StatelessWidget {
                                     context
                                         .read<MovieDetailsCubit>()
                                         .toggleBookmark();
+                                    // Add current movie to History
+                                    MovieDataStore.addToHistory(
+                                      SavedMovie(
+                                        id: movie.id,
+                                        title: movie.title,
+                                        imageUrl:
+                                            movie.largeCoverImage.isNotEmpty
+                                            ? movie.largeCoverImage
+                                            : movie.backgroundImageUrl,
+                                        rating: movie.rating,
+                                      ),
+                                    );
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Added to History!'),
+                                      ),
+                                    );
                                   },
                                   icon: Icon(
                                     state.isBookmarked
@@ -222,7 +242,7 @@ class MovieDetailsScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: scaleH(context, 24)),
+                    SizedBox(height: scaleH(context, 16)),
 
                     /// Screen Shots Section
                     if (screenshots.isNotEmpty) ...[
@@ -281,7 +301,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(height: scaleH(context, 24)),
+                      SizedBox(height: scaleH(context, 16)),
                     ],
 
                     /// Summary
@@ -299,7 +319,7 @@ class MovieDetailsScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: scaleH(context, 24)),
+                    SizedBox(height: scaleH(context, 16)),
 
                     /// Cast
                     if (movie.cast != null && movie.cast!.isNotEmpty) ...[
@@ -313,7 +333,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           return CastCardWidget(actor: movie.cast![index]);
                         },
                       ),
-                      SizedBox(height: scaleH(context, 24)),
+                      SizedBox(height: scaleH(context, 16)),
                     ],
 
                     /// Genres
@@ -321,7 +341,7 @@ class MovieDetailsScreen extends StatelessWidget {
                       TitleHeader(title: localizations.genres),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: scaleW(context, 16),
+                          horizontal: scaleW(context, 15),
                         ),
                         child: Wrap(
                           spacing: scaleW(context, 10),

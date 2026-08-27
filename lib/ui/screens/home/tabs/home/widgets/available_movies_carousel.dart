@@ -5,6 +5,8 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 
+import '../../../../../../utils/data_store.dart';
+
 class AvailableMoviesCarousel extends StatefulWidget {
   final List<dynamic> movies;
 
@@ -54,7 +56,15 @@ class _AvailableMoviesCarouselState extends State<AvailableMoviesCarousel> {
               final isSelected = index == _currentIndex;
 
               return GestureDetector(
-                onTap: () {
+                onTap: () {// Add to Watch List
+                  MovieDataStore.addToWatchList(
+                    SavedMovie(
+                      id: movie['id'] ?? 0,
+                      title: movie['title'] ?? '',
+                      imageUrl: movie['large_cover_image'] ?? movie['medium_cover_image'] ?? '',
+                      rating: (movie['rating'] as num?)?.toDouble() ?? 0.0,
+                    ),
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -8,6 +8,7 @@ import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -17,6 +18,7 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (context) => HomeCubit(DioManager())..getHomeData(),
       child: Scaffold(
@@ -103,7 +105,7 @@ class HomeTab extends StatelessWidget {
                     ),
 
                     MovieCategorySection(
-                      title: 'Action',
+                      title: localizations.action,
                       movies: state.actionMovies,
                       onSeeMoreTap: () {},
                     ),
@@ -111,7 +113,7 @@ class HomeTab extends StatelessWidget {
 
                     if (state.dramaMovies.isNotEmpty) ...[
                       MovieCategorySection(
-                        title: 'Drama',
+                        title: localizations.drama,
                         movies: state.dramaMovies,
                         onSeeMoreTap: () {},
                       ),
@@ -120,7 +122,7 @@ class HomeTab extends StatelessWidget {
 
                     if (state.sciFiMovies.isNotEmpty) ...[
                       MovieCategorySection(
-                        title: 'Sci-Fi',
+                        title: localizations.sci_fi,
                         movies: state.sciFiMovies,
                         onSeeMoreTap: () {},
                       ),
@@ -135,6 +137,7 @@ class HomeTab extends StatelessWidget {
             return const SizedBox.shrink();
           },
         ),
+
       ),
     );
   }
