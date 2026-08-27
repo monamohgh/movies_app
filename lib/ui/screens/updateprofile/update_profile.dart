@@ -216,9 +216,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                   ),
                 ),
-
-                SizedBox(height: context.height * 0.2),
-
+                SizedBox(height: context.height * 0.3,),
                 ElevatedButtonWidget(
                   onPressed: _deleteAccount,
                   backgroundColor: AppColors.redColor,
