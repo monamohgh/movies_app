@@ -39,4 +39,10 @@ class AppAssets {
   static const String onboar4 = 'assets/images/onboard4.png';
   static const String onboar5 = 'assets/images/onboard5.png';
   static const String onboar6 = 'assets/images/onboard6.png';
+ static const String Available= 'assets/images/Available Now.png';
+static const String WatchNow = 'assets/images/Watch Now.png';
+// static const String = '';
+// static const String = '';
+// static const String = '';
+// static const String = '';
 }

@@ -28,7 +28,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (context) =>
-      MovieDetailsCubit(DioManager())..loadMovieDetails(movieId),
+          MovieDetailsCubit(DioManager())..loadMovieDetails(movieId),
       child: Scaffold(
         backgroundColor: AppColors.blackColor,
         body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
@@ -62,7 +62,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           movie.backgroundImageUrl.isNotEmpty
                               ? movie.backgroundImageUrl
                               : movie.largeCoverImage,
-                          width: double.infinity,
+                          width: scaleW(context, 430),
                           height: scaleH(context, 520),
                           fit: BoxFit.fill,
                         ),
@@ -265,12 +265,12 @@ class MovieDetailsScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.68,
-                            crossAxisSpacing: scaleW(context, 14),
-                            mainAxisSpacing: scaleH(context, 14),
-                          ),
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.68,
+                                crossAxisSpacing: scaleW(context, 14),
+                                mainAxisSpacing: scaleH(context, 14),
+                              ),
                           itemCount: suggestions.length,
                           itemBuilder: (context, index) {
                             final suggestion = suggestions[index];
@@ -318,7 +318,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
                     /// Genres
                     if (movie.genres.isNotEmpty) ...[
-                      TitleHeader(title:localizations.genres ),
+                      TitleHeader(title: localizations.genres),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: scaleW(context, 16),
@@ -331,7 +331,7 @@ class MovieDetailsScreen extends StatelessWidget {
                               .toList(),
                         ),
                       ),
-                      SizedBox(height: scaleH(context, 32)),
+                      SizedBox(height: scaleH(context, 57)),
                     ],
                   ],
                 ),

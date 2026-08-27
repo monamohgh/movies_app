@@ -43,11 +43,13 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     try {
       final movieData = await _dioManager.fetchMovieDetails(movieId);
       final suggestions = await _dioManager.fetchMovieSuggestions(movieId);
-      emit(MovieDetailsSuccessState(
-        movieData: movieData,
-        suggestions: suggestions,
-        isBookmarked: false,
-      ));
+      emit(
+        MovieDetailsSuccessState(
+          movieData: movieData,
+          suggestions: suggestions,
+          isBookmarked: false,
+        ),
+      );
     } catch (e) {
       emit(MovieDetailsErrorState(e.toString()));
     }
