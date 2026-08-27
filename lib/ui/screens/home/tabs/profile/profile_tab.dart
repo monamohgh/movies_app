@@ -4,6 +4,8 @@ import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+import '../../../../../utils/data_store.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -19,7 +21,6 @@ class _ProfileTabState extends State<ProfileTab> {
 
   double scaleW(BuildContext context, double w) => (w / 430) * context.width;
   double scaleH(BuildContext context, double h) => (h / 932) * context.height;
-
 
   Future<void> _navigateToUpdateProfile() async {
     final result = await Navigator.push<Map<String, String>>(
@@ -44,6 +45,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.blackColor,
       appBar: AppBar(
@@ -51,7 +53,7 @@ class _ProfileTabState extends State<ProfileTab> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Profile',
+          localizations.profile,
           style: AppStyles.bold20White,
         ),
       ),
@@ -60,7 +62,6 @@ class _ProfileTabState extends State<ProfileTab> {
         child: Column(
           children: [
             SizedBox(height: scaleH(context, 10)),
-
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: scaleW(context, 16)),
@@ -95,16 +96,16 @@ class _ProfileTabState extends State<ProfileTab> {
                         ],
                       ),
 
-                      // Wish List Counter
+                      // Watch List Counter
                       Column(
                         children: [
                           Text(
-                            '12',
+                            '${MovieDataStore.watchList.length}',
                             style: AppStyles.bold24White,
                           ),
                           SizedBox(height: scaleH(context, 4)),
                           Text(
-                            'Wish List',
+                            localizations.watch_list,
                             style: AppStyles.regular16White,
                           ),
                         ],
@@ -114,12 +115,12 @@ class _ProfileTabState extends State<ProfileTab> {
                       Column(
                         children: [
                           Text(
-                            '10',
+                            '${MovieDataStore.historyList.length}',
                             style: AppStyles.bold24White,
                           ),
                           SizedBox(height: scaleH(context, 4)),
                           Text(
-                            'History',
+                            localizations.history,
                             style: AppStyles.regular16White,
                           ),
                         ],
@@ -147,7 +148,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             ),
                             onPressed: _navigateToUpdateProfile,
                             child: Text(
-                              'Edit Profile',
+                              localizations.edit_profile,
                               style: AppStyles.bold16Black,
                             ),
                           ),
@@ -167,14 +168,12 @@ class _ProfileTabState extends State<ProfileTab> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            onPressed: () {
-                              //Exit
-                            },
+                            onPressed: () {},
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Exit',
+                                  localizations.exit,
                                   style: AppStyles.regular15White,
                                 ),
                                 SizedBox(width: scaleW(context, 6)),
@@ -215,18 +214,70 @@ class _ProfileTabState extends State<ProfileTab> {
               ],
             ),
 
-            /// TabBar Views Content
+            /// TabBar Views Content Connected to Store Lists
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildEmptyState(context),
-                  _buildEmptyState(context),
+                  _buildMovieList(MovieDataStore.watchList),
+                  _buildMovieList(MovieDataStore.historyList),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildMovieList(List<SavedMovie> movies) {
+    if (movies.isEmpty) {
+      return _buildEmptyState(context);
+    }
+
+    return GridView.builder(
+      padding: EdgeInsets.all(scaleW(context, 16)),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.7,
+        crossAxisSpacing: scaleW(context, 12),
+        mainAxisSpacing: scaleH(context, 12),
+      ),
+      itemCount: movies.length,
+      itemBuilder: (context, index) {
+        final movie = movies[index];
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: AppColors.lightGreyColor.withValues(alpha: 0.2),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  child: Image.network(
+                    movie.imageUrl,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.movie, color: Colors.white),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  movie.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppStyles.regular15White,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

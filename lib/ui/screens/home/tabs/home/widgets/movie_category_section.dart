@@ -3,6 +3,8 @@ import 'package:movies_app/ui/screens/movie_details/movie_details_screen.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+import '../../../../../../utils/data_store.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 
 class MovieCategorySection extends StatelessWidget {
   final String title;
@@ -21,6 +23,7 @@ class MovieCategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Column(
       children: [
         Padding(
@@ -36,7 +39,7 @@ class MovieCategorySection extends StatelessWidget {
                 onTap: onSeeMoreTap,
                 child: Row(
                   children: [
-                    Text('See More', style: AppStyles.regular15Primary),
+                    Text(localizations.see_more, style: AppStyles.regular15Primary),
                     SizedBox(width: scaleW(context, 4)),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -58,7 +61,15 @@ class MovieCategorySection extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = movies[index];
               return GestureDetector(
-                onTap: () {
+                onTap: () {// Add to Watch List
+                  MovieDataStore.addToWatchList(
+                    SavedMovie(
+                      id: movie['id'] ?? 0,
+                      title: movie['title'] ?? '',
+                      imageUrl: movie['medium_cover_image'] ?? movie['large_cover_image'] ?? '',
+                      rating: (movie['rating'] as num?)?.toDouble() ?? 0.0,
+                    ),
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(

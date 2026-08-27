@@ -232,4 +232,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get genres => 'Genres';
+
+  @override
+  String get drama => 'Drama';
+
+  @override
+  String get profile => 'Profile';
 }

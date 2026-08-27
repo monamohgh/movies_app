@@ -71,5 +71,7 @@
  "something_went_wrong":"Something went wrong",
  "no_user_found":"No user found with this email",
  "the_email_not_valid":"The email address is not valid",
- "genres":"Genres"
+ "genres":"Genres",
+ "drama":"Drama",
+ "profile":"Profile"
 }
