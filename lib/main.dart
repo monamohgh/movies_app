@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColors.blackColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.registerRouteName ,
+      initialRoute: AppRoutes.splashScreenRouteName ,
       routes: {
         AppRoutes.splashScreenRouteName: (context) => SplashScreen(),
         AppRoutes.onBoardingScreenName: (context) => OnboardingScreen(),
