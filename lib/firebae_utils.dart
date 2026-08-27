@@ -33,4 +33,7 @@ class FirebaseUtils {
         .get();
     return querySnapshot.data();
   }
+  static Future<void>deleteUserFireSore(String id){
+    return getUserCollections().doc(id).delete();
+  }
 }

@@ -26,10 +26,10 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    MultiProvider(providers: [
+    MultiBlocProvider(providers: [
       ChangeNotifierProvider(create: (context) => AppLanguageProvider(),),
-      BlocProvider(create: (context) => UserCubit(),///Bloc
-      )
+      BlocProvider(create: (context) => UserCubit(),
+      ),
     ],
     child: const MyApp()),
   );
@@ -44,13 +44,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColors.blackColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.homeRouteName,
+      initialRoute: AppRoutes.registerRouteName ,
       routes: {
         AppRoutes.splashScreenRouteName: (context) => SplashScreen(),
         AppRoutes.onBoardingScreenName: (context) => OnboardingScreen(),
         AppRoutes.homeRouteName: (context) => HomeScreen(),
          AppRoutes.movieDetails: (context) => MovieDetailsScreen(),
-         AppRoutes.profile:(context) =>ProfileTab(),
          AppRoutes.updateProfileRouteName: (context) =>UpdateProfileScreen(),
         AppRoutes.loginRouteName: (context) => const LoginScreen(),
         AppRoutes.registerRouteName: (context) => const RegisterScreen(),

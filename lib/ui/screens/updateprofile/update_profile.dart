@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
+import 'package:movies_app/model/my_user.dart';
 import 'package:movies_app/ui/screens/updateprofile/picker_avatar_screen.dart';
 import 'package:movies_app/ui/widgets/elevated_button_widget.dart';
 import 'package:movies_app/ui/widgets/text_form_field_widget.dart';
@@ -8,6 +11,11 @@ import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 
+import '../../../blocs/user_bloc.dart';
+import '../../../firebae_utils.dart';
+import '../../../utils/app_routes.dart';
+import '../../../utils/dialog_utils.dart';
+
 class UpdateProfileScreen extends StatefulWidget {
   final String currentName;
   final String currentPhone;
@@ -15,9 +23,9 @@ class UpdateProfileScreen extends StatefulWidget {
 
   const UpdateProfileScreen({
     super.key,
-    this.currentName = 'John Safwat',
-    this.currentPhone = '01200000000',
-    this.currentAvatar = AppAssets.avatar1,
+      this.currentName='' ,
+      this.currentPhone ='',
+    this.currentAvatar ='',
   });
 
   @override
@@ -32,10 +40,20 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
-    selectedAvatar = widget.currentAvatar;
-    nameController = TextEditingController(text: widget.currentName);
-    phoneController = TextEditingController(text: widget.currentPhone);
-  }
+    final currentUser = context.read<UserCubit>().currentUser;
+    selectedAvatar = widget.currentAvatar.isNotEmpty
+        ? widget.currentAvatar
+        : (currentUser?.avatar ?? AppAssets.avatar1);
+    nameController = TextEditingController(
+      text: widget.currentName.isNotEmpty
+          ? widget.currentName
+          : (currentUser?.name ?? ''),
+    );
+    phoneController = TextEditingController(
+      text: widget.currentPhone.isNotEmpty
+          ? widget.currentPhone
+          : (currentUser?.phone ?? ''),
+    );  }
 
   @override
   void dispose() {
@@ -59,16 +77,65 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     }
   }
 
-  void _updateData() {
-    Navigator.pop(context, {
-      'name': nameController.text,
-      'phone': phoneController.text,
-      'avatar': selectedAvatar,
-    });
-  }
+  void _updateData() async {
+    final currentUser = context.read<UserCubit>().currentUser;
+    if (currentUser != null) {
+      MyUser updatedUser = MyUser(
+        name: nameController.text.trim(),
+        email: currentUser.email,
+        id: currentUser.id,
+        avatar: selectedAvatar,
+        phone: phoneController.text.trim(),
+      );
 
-  void _deleteAccount() {
-    // TODO: Delete account
+      await FirebaseUtils.addUserInFireStore(updatedUser);
+
+      if (mounted) {
+        context.read<UserCubit>().updateUser(updatedUser);
+        Navigator.pop(context);
+      }
+    }
+  }
+  //   Navigator.pop(context, {
+  //     'name': nameController.text,
+  //     'phone': phoneController.text,
+  //     'avatar': selectedAvatar,
+  //   });
+  // }
+
+  void _deleteAccount() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        DialogUtils.showLoading(
+          context: context,
+          loadingText: '${AppLocalizations.of(context)!.loading}....',
+        );
+
+        await FirebaseUtils.deleteUserFireSore(user.uid);
+
+        await user.delete();
+
+        if (mounted) {
+          DialogUtils.hideLoading(context: context);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            AppRoutes.loginRouteName,
+                (route) => false,
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMessage(
+          context: context,
+          message: e.toString(),
+          title: AppLocalizations.of(context)!.error,
+          positiveActionName: AppLocalizations.of(context)!.ok,
+        );
+      }
+    }
   }
 
   @override

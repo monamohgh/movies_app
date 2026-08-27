@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/screens/updateprofile/update_profile.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
+import '../../../../../blocs/user_bloc.dart';
 import '../../../../../utils/data_store.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 
@@ -15,36 +17,48 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  String userName = 'John Safwat';
-  String userPhone = '01200000000';
-  String userAvatar = AppAssets.avatar1;
+  // String userName = 'John Safwat';
+  // String userPhone = '01200000000';
+  // String userAvatar = AppAssets.avatar1;
 
   double scaleW(BuildContext context, double w) => (w / 430) * context.width;
   double scaleH(BuildContext context, double h) => (h / 932) * context.height;
 
   Future<void> _navigateToUpdateProfile() async {
-    final result = await Navigator.push<Map<String, String>>(
+    final currentUser = context.read<UserCubit>().currentUser;
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => UpdateProfileScreen(
-          currentName: userName,
-          currentPhone: userPhone,
-          currentAvatar: userAvatar,
+          currentName: currentUser?.name ?? '',
+          currentPhone: currentUser?.phone ?? '',
+          currentAvatar: currentUser?.avatar ?? AppAssets.avatar1,
         ),
       ),
     );
+    // final result = await Navigator.push<Map<String, String>>(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => UpdateProfileScreen(
+    //       currentName: userName,
+    //       currentPhone: userPhone,
+    //       currentAvatar: userAvatar,
+    //     ),
+    //   ),
+    // );
 
-    if (result != null) {
-      setState(() {
-        userName = result['name'] ?? userName;
-        userPhone = result['phone'] ?? userPhone;
-        userAvatar = result['avatar'] ?? userAvatar;
-      });
-    }
+    // if (result != null) {
+    //   setState(() {
+    //     userName = result['name'] ?? userName;
+    //     userPhone = result['phone'] ?? userPhone;
+    //     userAvatar = result['avatar'] ?? userAvatar;
+    //   });
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
+    var userCubit = context.read<UserCubit>();
     final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.blackColor,
@@ -62,7 +76,6 @@ class _ProfileTabState extends State<ProfileTab> {
         child: Column(
           children: [
             SizedBox(height: scaleH(context, 10)),
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: scaleW(context, 16)),
               child: Column(
@@ -70,31 +83,63 @@ class _ProfileTabState extends State<ProfileTab> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // User Info
-                      Column(
-                        children: [
-                          Container(
-                            width: scaleW(context, 80),
-                            height: scaleW(context, 80),
-                            decoration: const BoxDecoration(shape: BoxShape.circle),
-                            child: ClipOval(
-                              child: Image.asset(
-                                userAvatar,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) => Image.asset(
-                                  AppAssets.avatar1,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: scaleH(context, 8)),
-                          Text(
-                            userName,
-                            style: AppStyles.bold20White,
-                          ),
-                        ],
+                      BlocBuilder<UserCubit,UserState>(builder:
+                      (context, state) {
+                        final currentUser=context.read<UserCubit>();
+                   String userName='User';
+                   String userAvatar = AppAssets.avatar1;
+                   if(state is UserUpdatedState){
+                     userName=state.user.name;
+                     userAvatar=state.user.avatar;
+                   }
+                   return Column(
+                     children: [
+                       Container(
+                         width: scaleW(context, 80),
+                         height: scaleW(context, 80),
+                         decoration: const BoxDecoration(shape: BoxShape.circle),
+                         child: ClipOval(
+                           child: Image.asset(
+                             userAvatar ,
+                             fit: BoxFit.cover,
+                             errorBuilder: (context, error, stackTrace) => Image.asset(
+                               AppAssets.avatar1,
+                               fit: BoxFit.cover,
+                             ),
+                           ),
+                         ),
+                       ),
+                       SizedBox(height: scaleH(context, 8)),
+                       Text(userName,style: AppStyles.bold20White),
+                     ],
+                   );
+                      },
                       ),
+                      // User Info
+                      // Column(
+                      //   children: [
+                      //     Container(
+                      //       width: scaleW(context, 80),
+                      //       height: scaleW(context, 80),
+                      //       decoration: const BoxDecoration(shape: BoxShape.circle),
+                      //       child: ClipOval(
+                      //         child: Image.asset(
+                      //           userAvatar,
+                      //           fit: BoxFit.cover,
+                      //           errorBuilder: (context, error, stackTrace) => Image.asset(
+                      //             AppAssets.avatar1,
+                      //             fit: BoxFit.cover,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(height: scaleH(context, 8)),
+                      //     Text(
+                      //       userCubit.,
+                      //       style: AppStyles.bold20White,
+                      //     ),
+                      //   ],
+                      // ),
 
                       // Watch List Counter
                       Column(

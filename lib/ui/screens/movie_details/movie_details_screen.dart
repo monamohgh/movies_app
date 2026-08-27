@@ -19,7 +19,7 @@ import '../../../utils/data_store.dart';
 class MovieDetailsScreen extends StatelessWidget {
   final int movieId;
 
-  const MovieDetailsScreen({super.key, this.movieId = 30});
+  const MovieDetailsScreen({super.key, this.movieId = 30  });
 
   double scaleW(BuildContext context, double w) => (w / 430) * context.width;
   double scaleH(BuildContext context, double h) => (h / 932) * context.height;

@@ -337,11 +337,14 @@ class _LoginScreenState extends State<LoginScreen> {
           credential.user?.uid ?? '',
         );
         if (user == null) {
+          if (mounted) DialogUtils.hideLoading(context: context);
           return;
         }
-        //todo:4-save user in bloc
-        context.read<UserCubit>().updateUser(user);
 
+        //todo:4-save user in bloc
+        if (mounted) {
+          context.read<UserCubit>().updateUser(user);
+        }
         //todo:5-hide loading
         DialogUtils.hideLoading(context: context);
         //todo:6-show message=>success
@@ -417,6 +420,8 @@ class _LoginScreenState extends State<LoginScreen> {
       // إذا كان أول دخول للمستخدم عبر جوجل، ننشئ له سجلاً في Firestore
       if (user == null && userCredential.user != null) {
         var newUser = MyUser(
+          phone: '',
+          avatar: '',
           id: userCredential.user!.uid,
           name: userCredential.user!.displayName ?? '',
           email: userCredential.user!.email ?? '',
