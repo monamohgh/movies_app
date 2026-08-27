@@ -22,6 +22,7 @@ class _ProfileTabState extends State<ProfileTab> {
   // String userAvatar = AppAssets.avatar1;
 
   double scaleW(BuildContext context, double w) => (w / 430) * context.width;
+
   double scaleH(BuildContext context, double h) => (h / 932) * context.height;
 
   Future<void> _navigateToUpdateProfile() async {
@@ -66,10 +67,7 @@ class _ProfileTabState extends State<ProfileTab> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          localizations.profile,
-          style: AppStyles.bold20White,
-        ),
+        title: Text(localizations.profile, style: AppStyles.bold20White),
       ),
       body: DefaultTabController(
         length: 2,
@@ -83,37 +81,44 @@ class _ProfileTabState extends State<ProfileTab> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BlocBuilder<UserCubit,UserState>(builder:
-                      (context, state) {
-                        final currentUser=context.read<UserCubit>();
-                   String userName='User';
-                   String userAvatar = AppAssets.avatar1;
-                   if(state is UserUpdatedState){
-                     userName=state.user.name;
-                     userAvatar=state.user.avatar;
-                   }
-                   return Column(
-                     children: [
-                       Container(
-                         width: scaleW(context, 80),
-                         height: scaleW(context, 80),
-                         decoration: const BoxDecoration(shape: BoxShape.circle),
-                         child: ClipOval(
-                           child: Image.asset(
-                             userAvatar ,
-                             fit: BoxFit.cover,
-                             errorBuilder: (context, error, stackTrace) => Image.asset(
-                               AppAssets.avatar1,
-                               fit: BoxFit.cover,
-                             ),
-                           ),
-                         ),
-                       ),
-                       SizedBox(height: scaleH(context, 8)),
-                       Text(userName,style: AppStyles.bold20White),
-                     ],
-                   );
-                      },
+                      Expanded(
+                        child: BlocBuilder<UserCubit, UserState>(
+                          builder: (context, state) {
+                            final currentUser = context.read<UserCubit>();
+                            String userName = 'User';
+                            String userAvatar = AppAssets.avatar1;
+                            if (state is UserUpdatedState) {
+                              userName = state.user.name;
+                              userAvatar = state.user.avatar;
+                            }
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: scaleW(context, 80),
+                                  height: scaleW(context, 80),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      userAvatar,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                                AppAssets.avatar1,
+                                                fit: BoxFit.cover,
+                                              ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: scaleH(context, 8)),
+                                Text(userName, style: AppStyles.bold20White),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                       // User Info
                       // Column(
@@ -248,14 +253,8 @@ class _ProfileTabState extends State<ProfileTab> {
               unselectedLabelColor: AppColors.whiteColor,
               labelStyle: AppStyles.regular15White,
               tabs: const [
-                Tab(
-                  icon: Icon(Icons.format_list_bulleted),
-                  text: 'Watch List',
-                ),
-                Tab(
-                  icon: Icon(Icons.folder),
-                  text: 'History',
-                ),
+                Tab(icon: Icon(Icons.format_list_bulleted), text: 'Watch List'),
+                Tab(icon: Icon(Icons.folder), text: 'History'),
               ],
             ),
 
@@ -300,13 +299,15 @@ class _ProfileTabState extends State<ProfileTab> {
             children: [
               Expanded(
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12),
+                  ),
                   child: Image.network(
                     movie.imageUrl,
                     width: double.infinity,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.movie, color: Colors.white),
+                        const Icon(Icons.movie, color: Colors.white),
                   ),
                 ),
               ),
