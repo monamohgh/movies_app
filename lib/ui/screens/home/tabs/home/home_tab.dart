@@ -92,7 +92,8 @@ class HomeTab extends StatelessWidget {
                         Column(
                           children: [
                             SizedBox(height: scaleH(context, 50)),
-                            AvailableMoviesCarousel(movies: state.availableMovies),
+                            AvailableMoviesCarousel(
+                                movies: state.availableMovies),
                             SizedBox(height: scaleH(context, 15)),
                             Image.asset(
                               AppAssets.WatchNow,
@@ -103,14 +104,12 @@ class HomeTab extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     MovieCategorySection(
                       title: localizations.action,
                       movies: state.actionMovies,
                       onSeeMoreTap: () {},
                     ),
                     SizedBox(height: scaleH(context, 20)),
-
                     if (state.dramaMovies.isNotEmpty) ...[
                       MovieCategorySection(
                         title: localizations.drama,
@@ -119,7 +118,6 @@ class HomeTab extends StatelessWidget {
                       ),
                       SizedBox(height: scaleH(context, 20)),
                     ],
-
                     if (state.sciFiMovies.isNotEmpty) ...[
                       MovieCategorySection(
                         title: localizations.sci_fi,
@@ -128,7 +126,6 @@ class HomeTab extends StatelessWidget {
                       ),
                       SizedBox(height: scaleH(context, 20)),
                     ],
-
                     SizedBox(height: scaleH(context, 30)),
                   ],
                 ),
@@ -137,7 +134,6 @@ class HomeTab extends StatelessWidget {
             return const SizedBox.shrink();
           },
         ),
-
       ),
     );
   }

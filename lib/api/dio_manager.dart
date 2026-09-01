@@ -22,6 +22,23 @@ class DioManager {
     ),
   );
 
+  final Dio _searchDio = Dio(
+    BaseOptions(
+      baseUrl: 'https://movies-api.accel.li/api/v2/',
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 60),
+    ),
+  );
+
+  /// ==================== Search tab ====================
+
+  Future<List<dynamic>> searchMovies(String query) async {
+    if (query.trim().isEmpty) return [];
+    final response = await _searchDio
+        .get('/list_movies.json', queryParameters: {'query_term': query});
+    return response.data['data']['movies'] ?? [];
+  }
+
   // ==================== Movie Details ====================
 
   Future<MovieData> fetchMovieDetails(int movieId) async {
