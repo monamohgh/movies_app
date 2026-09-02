@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/screens/updateprofile/update_profile.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
+import 'package:movies_app/utils/app_routes.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/size_utils.dart';
 import '../../../../../blocs/user_bloc.dart';
@@ -213,7 +214,9 @@ class _ProfileTabState extends State<ProfileTab> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.loginRouteName , (route) => false,);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
