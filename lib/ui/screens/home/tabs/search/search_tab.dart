@@ -65,53 +65,17 @@ class SearchTab extends StatelessWidget {
                       if (state is SearchLoadingState) {
                         return Center(
                           child: CircularProgressIndicator(
-                              color: AppColors.primaryColor),
+                            color: AppColors.primaryColor,
+                          ),
                         );
                       }
 
+                      if (state is SearchInitialState) {
+                        return const SizedBox.shrink() ;
+                      }
+
                       if (state is SearchSuccessState) {
-                        if (state.movies.isEmpty) {
-                          return _buildNotFoundWidget();
-                        }
-
-                        return GridView.builder(
-                          itemCount: state.movies.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.6,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemBuilder: (context, i) {
-                            final movie = state.movies[i];
-                            final int movieId = movie['id'] is int
-                                ? movie['id']
-                                : int.tryParse(movie['id'].toString()) ?? 0;
-
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MovieDetailsScreen(
-                                      movieId: movieId,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.network(
-                                  movie['medium_cover_image'] ?? '',
-                                  fit: BoxFit.fill,
-                                  errorBuilder: (x, y, z) =>
-                                      Container(color: Colors.grey[800]),
-                                ),
-                              ),
-                            );
-                          },
-                        );
+                        return _buildMoviesGrid(context, state.movies);
                       }
 
                       return const SizedBox.shrink();
@@ -123,6 +87,52 @@ class SearchTab extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  /// Reusable grid of movies
+  Widget _buildMoviesGrid(BuildContext context, List<dynamic> movies) {
+    if (movies.isEmpty) {
+      return _buildNotFoundWidget();
+    }
+
+    return GridView.builder(
+      itemCount: movies.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.6,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 8,
+      ),
+      itemBuilder: (context, i) {
+        final movie = movies[i];
+        final int movieId = movie['id'] is int
+            ? movie['id']
+            : int.tryParse(movie['id'].toString()) ?? 0;
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MovieDetailsScreen(
+                  movieId: movieId,
+                ),
+              ),
+            );
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              movie['medium_cover_image'] ?? '',
+              fit: BoxFit.fill,
+              errorBuilder: (_, __, ___) => Container(
+                color: Colors.grey[800],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

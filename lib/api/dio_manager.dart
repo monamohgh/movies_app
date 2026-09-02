@@ -33,12 +33,22 @@ class DioManager {
   /// ==================== Search tab ====================
 
   Future<List<dynamic>> searchMovies(String query) async {
-    if (query.trim().isEmpty) return [];
-    final response = await _searchDio
-        .get('/list_movies.json', queryParameters: {'query_term': query});
+    final Map<String, dynamic> queryParameters = {
+      'limit': 20,
+    };
+
+    if (query.trim().isNotEmpty) {
+      queryParameters['query_term'] = query;
+    } else {
+      queryParameters['sort_by'] = 'rating';
+    }
+    final response = await _searchDio.get(
+      '/list_movies.json',
+      queryParameters: queryParameters,
+    );
+
     return response.data['data']['movies'] ?? [];
   }
-
   // ==================== Movie Details ====================
 
   Future<MovieData> fetchMovieDetails(int movieId) async {

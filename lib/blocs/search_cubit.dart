@@ -3,7 +3,10 @@ import 'package:movies_app/api/dio_manager.dart';
 
 abstract class SearchState {}
 
-class SearchInitialState extends SearchState {}
+class SearchInitialState extends SearchState {
+  final List<dynamic> movies;
+  SearchInitialState([this.movies = const []]);
+}
 
 class SearchLoadingState extends SearchState {}
 
@@ -20,11 +23,24 @@ class SearchErrorState extends SearchState {
 class SearchCubit extends Cubit<SearchState> {
   final DioManager dioManager = DioManager();
 
-  SearchCubit() : super(SearchInitialState());
+  SearchCubit() : super(SearchInitialState()) {
+
+    loadSuggestions();
+  }
+
+  void loadSuggestions() async {
+    emit(SearchLoadingState());
+    try {
+      final movies = await dioManager.searchMovies('');
+      emit(SearchSuccessState(movies));
+    } catch (e) {
+      emit(SearchErrorState(e.toString()));
+    }
+  }
 
   void search(String query) async {
     if (query.trim().isEmpty) {
-      emit(SearchInitialState());
+      loadSuggestions();
       return;
     }
 
