@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/blocs/user_bloc.dart';
-import 'package:movies_app/ui/screens/home/tabs/profile/profile_tab.dart';
 import 'package:movies_app/ui/screens/movie_details/movie_details_screen.dart';
 import 'package:movies_app/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:movies_app/ui/screens/splash/splash_screen.dart';
@@ -18,22 +17,23 @@ import 'package:movies_app/utils/app_routes.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
     MultiBlocProvider(providers: [
-      ChangeNotifierProvider(create: (context) => AppLanguageProvider(),),
-      BlocProvider(create: (context) => UserCubit(),
+      ChangeNotifierProvider(
+        create: (context) => AppLanguageProvider(),
       ),
-    ],
-    child: const MyApp()),
+      BlocProvider(
+        create: (context) => UserCubit(),
+      ),
+    ], child: const MyApp()),
   );
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -44,16 +44,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColors.blackColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.splashScreenRouteName ,
+      initialRoute: AppRoutes.homeRouteName,
       routes: {
         AppRoutes.splashScreenRouteName: (context) => SplashScreen(),
         AppRoutes.onBoardingScreenName: (context) => OnboardingScreen(),
         AppRoutes.homeRouteName: (context) => HomeScreen(),
-         AppRoutes.movieDetails: (context) => MovieDetailsScreen(),
-         AppRoutes.updateProfileRouteName: (context) =>UpdateProfileScreen(),
+        AppRoutes.movieDetails: (context) => MovieDetailsScreen(),
+        AppRoutes.updateProfileRouteName: (context) => UpdateProfileScreen(),
         AppRoutes.loginRouteName: (context) => const LoginScreen(),
         AppRoutes.registerRouteName: (context) => const RegisterScreen(),
-        AppRoutes.forgetPasswordRouteName: (context) =>const ForgetPasswordScreen(),
+        AppRoutes.forgetPasswordRouteName: (context) =>
+            const ForgetPasswordScreen(),
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -61,5 +62,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

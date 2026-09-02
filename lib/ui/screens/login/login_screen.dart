@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       return localizations.please_enter_email;
                     }
                     final RegExp emailRegex = RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$',
                     );
                     if (!emailRegex.hasMatch(value.trim())) {
                       return localizations.please_enter_valid_email;
@@ -320,105 +320,127 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  void login() async {
-    if (_formKey.currentState!.validate() == true) {
-      //todo:login
-      try {
-        //todo:1-show loading
-        DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
-        //todo:2-login FirebaseAuth
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
-        //todo:3-read user from fireStore
-        var user = await FirebaseUtils.readUserFromFireStore(
-          credential.user?.uid ?? '',
-        );
-        if (user == null) {
-          if (mounted) DialogUtils.hideLoading(context: context);
-          return;
-        }
 
-        //todo:4-save user in bloc
-        if (mounted) {
-          context.read<UserCubit>().updateUser(user);
-        }
-        //todo:5-hide loading
-        DialogUtils.hideLoading(context: context);
-        //todo:6-show message=>success
-        DialogUtils.showMessage(
-          context: context,
-          message: AppLocalizations.of(context)!.login_successfully,
-          title:  AppLocalizations.of(context)!.success,
-          positiveActionName:  AppLocalizations.of(context)!.ok,
-          positiveAction: () {
-            Navigator.pushNamed(context, AppRoutes.homeRouteName);
-          },
-        );
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'invalid-credential') {
-          //todo:hide loading
-          DialogUtils.hideLoading(context: context);
+  Future<void> login() async {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
 
-          //todo:show message=>error
-          DialogUtils.showMessage(
-            context: context,
-            message:
-            'The supplied auth credential is incorrect, malformed or has expired.',
-            title:  AppLocalizations.of(context)!.error,
-            positiveActionName:  AppLocalizations.of(context)!.ok,
-          );
-        }
-      } catch (e) {
-        //todo:hide loading
+    final localizations = AppLocalizations.of(context)!;
+
+    try {
+      DialogUtils.showLoading(
+        context: context,
+        loadingText: '${localizations.loading}....',
+      );
+
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+
+      var user = await FirebaseUtils.readUserFromFireStore(
+        credential.user?.uid ?? '',
+      );
+
+      if (!mounted) return;
+
+      if (user == null) {
         DialogUtils.hideLoading(context: context);
-        //todo:show message=>error
-        DialogUtils.showMessage(
-          context: context,
-          message: e.toString(),
-          title: AppLocalizations.of(context)!.error,
-          positiveActionName:AppLocalizations.of(context)!.ok,
-        );
+        return;
       }
+
+      context.read<UserCubit>().updateUser(user);
+      DialogUtils.hideLoading(context: context);
+
+      DialogUtils.showMessage(
+        context: context,
+        message: localizations.login_successfully,
+        title: localizations.success,
+        positiveActionName: localizations.ok,
+        positiveAction: () {
+          if (!mounted) return;
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.homeRouteName,
+                (route) => false,
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      DialogUtils.hideLoading(context: context);
+
+      String errorMessage = e.message ?? 'Authentication failed';
+      if (e.code == 'invalid-credential') {
+        errorMessage =
+        'The supplied auth credential is incorrect, malformed or has expired.';
+      }
+
+      DialogUtils.showMessage(
+        context: context,
+        message: errorMessage,
+        title: localizations.error,
+        positiveActionName: localizations.ok,
+      );
+    } catch (e) {
+      if (!mounted) return;
+      DialogUtils.hideLoading(context: context);
+
+      DialogUtils.showMessage(
+        context: context,
+        message: e.toString(),
+        title: localizations.error,
+        positiveActionName: localizations.ok,
+      );
     }
   }
+
   void signInWithGoogle() async {
+    final localizations = AppLocalizations.of(context)!;
+    final navigator = Navigator.of(context);
+
     try {
-      // 1. إظهار مؤشر التحميل
-      DialogUtils.showLoading(context: context, loadingText: '${AppLocalizations.of(context)!.loading}....');
-      await GoogleSignIn().signOut();
+      DialogUtils.showLoading(
+        context: context,
+        loadingText: '${localizations.loading}....',
+      );
 
-      // 2. بدء عملية تسجيل الدخول عبر Google
-      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
-      // إذا أغلق المستخدم النافذة ولم يقتّر إيميل
+      final googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
+
+
+      final GoogleSignInAccount? gUser = await googleSignIn.signIn();
+
       if (gUser == null) {
         if (mounted) DialogUtils.hideLoading(context: context);
         return;
       }
 
-      // 3. جلب تفاصيل التوثيق
-      final GoogleSignInAuthentication gAuth = await gUser.authentication;
+      final GoogleSignInAuthentication gAuth =  await gUser.authentication;
 
-      // 4. إنشاء الـ Credential
       final credential = GoogleAuthProvider.credential(
         accessToken: gAuth.accessToken,
         idToken: gAuth.idToken,
       );
 
-      // 5. تسجيل الدخول في Firebase
       UserCredential userCredential =
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      // 6. قراءة بيانات المستخدم من Firestore
+      if (!mounted) return;
+
+      if (userCredential.user == null) {
+        DialogUtils.hideLoading(context: context);
+        return;
+      }
+
       var user = await FirebaseUtils.readUserFromFireStore(
-        userCredential.user?.uid ?? '',
+        userCredential.user!.uid,
       );
 
-      // إذا كان أول دخول للمستخدم عبر جوجل، ننشئ له سجلاً في Firestore
-      if (user == null && userCredential.user != null) {
+      if (!mounted) return;
+
+      if (user == null) {
         var newUser = MyUser(
           phone: '',
           avatar: '',
@@ -430,33 +452,24 @@ class _LoginScreenState extends State<LoginScreen> {
         user = newUser;
       }
 
-      // التأكد من أن الـ Widget ما زالت موجودة قبل استخدام الـ context
       if (!mounted) return;
 
-      // 7. حفظ المستخدم في الـ Cubit
-      if (user != null) {
-        context.read<UserCubit>().updateUser(user);
-      }
-
-      // 8. إخفاء التحميل
+      context.read<UserCubit>().updateUser(user);
       DialogUtils.hideLoading(context: context);
 
-      // 9. الانتقال لشاشة الـ Home
-      Navigator.of(
-        context,
-      ).pushNamedAndRemoveUntil(AppRoutes.homeRouteName, (route) => false);
+      navigator.pushNamedAndRemoveUntil(
+        AppRoutes.homeRouteName,
+            (route) => false,
+      );
     } catch (e) {
-      if (mounted) {
-        DialogUtils.hideLoading(context: context);
-        DialogUtils.showMessage(
-          context: context,
-          message: e.toString(),
-          title: AppLocalizations.of(context)!.error,
-          positiveActionName: AppLocalizations.of(context)!.ok,
-        );
-      }
+      if (!mounted) return;
+      DialogUtils.hideLoading(context: context);
+      DialogUtils.showMessage(
+        context: context,
+        message: e.toString(),
+        title: localizations.error,
+        positiveActionName: localizations.ok,
+      );
     }
   }
-
 }
-
