@@ -547,6 +547,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// No description provided for @no_movies_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No Movies Found'**
+  String get no_movies_found;
 }
 
 class _AppLocalizationsDelegate
