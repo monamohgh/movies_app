@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'category_item.dart';
 
-class CategoriesList extends StatefulWidget {
+class CategoriesList extends StatelessWidget {
   final List<String> categories;
-  final Function(int) onCategorySelected;
+  final String selectedCategory;
+  final Function(String) onCategorySelected;
 
-  const CategoriesList({
+   CategoriesList({
     super.key,
     required this.categories,
+    required this.selectedCategory,
     required this.onCategorySelected,
   });
 
-  @override
-  State<CategoriesList> createState() => _CategoriesListState();
-}
-
-class _CategoriesListState extends State<CategoriesList> {
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +21,17 @@ class _CategoriesListState extends State<CategoriesList> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: widget.categories.length,
+        itemCount: categories.length,
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
+          final category=categories[index];
+          /// المقارنة مباشرة بين اسم التصنيف والتصنيف المحدد
+          final isSelected=category==selectedCategory;
           return CategoryItem(
-            title: widget.categories[index],
-            isSelected: selectedIndex == index,
+            title: category,
+            isSelected: isSelected,
             onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-              widget.onCategorySelected(index);
+           onCategorySelected(category);
             },
           );
         },

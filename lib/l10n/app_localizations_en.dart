@@ -238,4 +238,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get no_movies_found => 'No Movies Found';
 }

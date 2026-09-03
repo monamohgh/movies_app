@@ -238,4 +238,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profile => 'الملف الشخصي';
+
+  @override
+  String get no_movies_found => 'لا يوجد أفلام';
 }

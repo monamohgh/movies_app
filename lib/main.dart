@@ -14,6 +14,8 @@ import 'package:movies_app/ui/screens/register/register_screen.dart';
 import 'package:movies_app/ui/screens/updateprofile/update_profile.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_routes.dart';
+import 'api/dio_manager.dart';
+import 'blocs/browse_cubit.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
