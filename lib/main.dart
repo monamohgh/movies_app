@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/blocs/user_bloc.dart';
-import 'package:movies_app/ui/screens/browse/browse_screen.dart';
 import 'package:movies_app/ui/screens/movie_details/movie_details_screen.dart';
 import 'package:movies_app/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:movies_app/ui/screens/splash/splash_screen.dart';
@@ -56,7 +55,6 @@ class MyApp extends StatelessWidget {
         AppRoutes.registerRouteName: (context) => const RegisterScreen(),
         AppRoutes.forgetPasswordRouteName: (context) =>
             const ForgetPasswordScreen(),
-        AppRoutes.browseRouteName:(context) => BrowseScreen(),
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

@@ -109,7 +109,6 @@ class SearchTab extends StatelessWidget {
         final int movieId = movie['id'] is int
             ? movie['id']
             : int.tryParse(movie['id'].toString()) ?? 0;
-
         return GestureDetector(
           onTap: () {
             Navigator.push(
