@@ -96,12 +96,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       }
     }
   }
-  //   Navigator.pop(context, {
-  //     'name': nameController.text,
-  //     'phone': phoneController.text,
-  //     'avatar': selectedAvatar,
-  //   });
-  // }
+
 
   void _deleteAccount() async {
     try {
