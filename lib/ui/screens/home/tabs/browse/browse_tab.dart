@@ -38,7 +38,7 @@ class BrowseTab extends StatelessWidget {
                      child: Padding(
                        padding:  EdgeInsets.symmetric(horizontal: context.width*.02,vertical: context.height*.02 ),
                        child: Center(
-                      child:  MoviesGridView(movies: state.filteredMovies,)
+                      child:  MoviesGridView(movies: state.filteredMovies,isLoading: state.isMoviesLoading,)
                        ),
                      ),
                    ),

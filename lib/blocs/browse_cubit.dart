@@ -12,11 +12,14 @@ class BrowseSuccessState extends BrowseState {
   final Set<String> categories;
   final List<MovieModel> filteredMovies;
   final String selectedGenre;
+  final bool isMoviesLoading;
 
-  BrowseSuccessState(
-      {required this.categories,
-      required this.filteredMovies,
-      required this.selectedGenre});
+  BrowseSuccessState({
+    required this.categories,
+    required this.filteredMovies,
+    required this.selectedGenre,
+    this.isMoviesLoading = false,
+  });
 }
 
 class BrowseErrorState extends BrowseState {
@@ -27,52 +30,71 @@ class BrowseErrorState extends BrowseState {
 
 class BrowseCubit extends Cubit<BrowseState> {
   BrowseCubit(this.dioManager) : super(BrowseInitialState());
+
   final DioManager dioManager;
-  List<MovieModel> allMovies = [];
   Set<String> genresSet = {};
   String selectedGenre = '';
+  List<MovieModel> currentMovies = [];
 
   Future<void> getBrowseData() async {
     emit(BrowseLoadingState());
-    // print('⏳ Started loading data...');
     try {
-      var response = await dioManager.fetchMovies();
-      allMovies = response.map((e) => MovieModel.fromJson(e)).toList();
-      // print('Fetched Movies Count: ${allMovies.length}');
-      for (int i = 0; i < allMovies.length; i++) {
-        genresSet.addAll(allMovies[i].genres);
+      var initialResponse = await dioManager.fetchMovies();
+      List<MovieModel> initialMovies =
+      initialResponse.map((e) => MovieModel.fromJson(e)).toList();
+
+      for (var movie in initialMovies) {
+        genresSet.addAll(movie.genres);
       }
-      // print(' Unique Genres Found: $genresSet');
+
       if (genresSet.isNotEmpty) {
         selectedGenre = genresSet.first;
-      }
-      List<MovieModel> filteredMovies = allMovies
-          .where(
-            (movie) => movie.genres.contains(selectedGenre),
-          )
-          .toList();
-      // print(' Selected Genre: $selectedGenre');
-      // print(' Filtered Movies Count: ${filteredMovies.length}');
-      emit(BrowseSuccessState(
+
+        var genreResponse = await dioManager.fetchMovies(genre: selectedGenre);
+        currentMovies =
+            genreResponse.map((e) => MovieModel.fromJson(e)).toList();
+
+        emit(BrowseSuccessState(
           categories: genresSet,
-          filteredMovies: filteredMovies,
-          selectedGenre: selectedGenre));
+          filteredMovies: currentMovies,
+          selectedGenre: selectedGenre,
+          isMoviesLoading: false,
+        ));
+      } else {
+        emit(BrowseSuccessState(
+          categories: {},
+          filteredMovies: [],
+          selectedGenre: '',
+        ));
+      }
     } catch (e) {
-      // print(' Error occurred: $e');
       emit(BrowseErrorState(errorMessage: e.toString()));
     }
   }
 
-  void changeSelectedGenre(String newGenre) {
+  Future<void> changeSelectedGenre(String newGenre) async {
+    if (selectedGenre == newGenre) return;
+
     selectedGenre = newGenre;
-    List<MovieModel> filteredMovies = allMovies
-        .where(
-          (movie) => movie.genres.contains(selectedGenre),
-        )
-        .toList();
+
     emit(BrowseSuccessState(
+      categories: genresSet,
+      filteredMovies: [],
+      selectedGenre: selectedGenre,
+      isMoviesLoading: true,
+    ));
+
+    try {
+      var response = await dioManager.fetchMovies(genre: newGenre);
+      currentMovies = response.map((e) => MovieModel.fromJson(e)).toList();
+
+      emit(BrowseSuccessState(
         categories: genresSet,
-        filteredMovies: filteredMovies,
-        selectedGenre: selectedGenre));
-  }
-}
+        filteredMovies: currentMovies,
+        selectedGenre: selectedGenre,
+        isMoviesLoading: false,
+      ));
+    } catch (e) {
+      emit(BrowseErrorState(errorMessage: e.toString()));
+    }
+  }}

@@ -3,15 +3,24 @@ import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/screens/home/tabs/browse/widgets/movie_card.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import '../../../../../../model/movie_model.dart';
+import '../../../../../../utils/app_colors.dart';
 import '../../../../../../utils/data_store.dart';
 import '../../../../movie_details/movie_details_screen.dart';
 
 class  MoviesGridView extends StatelessWidget {
   final List<MovieModel> movies;
-  const  MoviesGridView({super.key,required this.movies});
+  final bool isLoading;
+  const  MoviesGridView({super.key,required this.movies,this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: AppColors.primaryColor,
+        ),
+      );
+    }
    if(movies.isEmpty){
      return Center(
        child: Text(AppLocalizations.of(context)!.no_movies_found,style: AppStyles.bold16Primary,),
