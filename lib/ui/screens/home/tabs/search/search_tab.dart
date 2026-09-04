@@ -156,7 +156,7 @@ class SearchTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'No Film Found',
+            'No Movie Found',
             style: AppStyles.regular15Primary,
           ),
         ],
