@@ -86,7 +86,6 @@ class _ProfileTabState extends State<ProfileTab> {
                     children: [
                       BlocBuilder<UserCubit,UserState>(builder:
                       (context, state) {
-                        final currentUser=context.read<UserCubit>();
                    String userName='User';
                    String userAvatar = AppAssets.avatar1;
                    if(state is UserUpdatedState){

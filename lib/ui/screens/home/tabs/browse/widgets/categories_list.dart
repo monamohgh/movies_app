@@ -6,7 +6,7 @@ class CategoriesList extends StatelessWidget {
   final String selectedCategory;
   final Function(String) onCategorySelected;
 
-   CategoriesList({
+   const CategoriesList({
     super.key,
     required this.categories,
     required this.selectedCategory,

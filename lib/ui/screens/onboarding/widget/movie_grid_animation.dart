@@ -4,7 +4,7 @@ import 'package:movies_app/utils/app_colors.dart';
 
 
 class MovieGridAnimation extends StatefulWidget {
-  const MovieGridAnimation({Key? key}) : super(key: key);
+  const MovieGridAnimation({super.key});
 
   @override
   State<MovieGridAnimation> createState() => _MovieGridAnimationState();

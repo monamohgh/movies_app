@@ -1,5 +1,4 @@
-import 'package:easy_localization/easy_localization.dart'
-    show StringTranslateExtension;
+
 import 'package:flutter/material.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -15,13 +14,13 @@ class OnboardingContentContainer extends StatelessWidget {
   final VoidCallback? onBackPressed;
 
   const OnboardingContentContainer({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.buttonText,
     required this.onNextPressed,
     this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

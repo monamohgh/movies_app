@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../utils/app_colors.dart';
 class ElevatedButtonWidget extends StatelessWidget {
@@ -10,7 +9,7 @@ class ElevatedButtonWidget extends StatelessWidget {
   final double? verticalPadding;
   final double? radius;
 
-  ElevatedButtonWidget({
+  const ElevatedButtonWidget({super.key,
     required this.child,
     this.onPressed,required this.backgroundColor,this.verticalPadding,
     this.radius,

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/api/dio_manager.dart';
 import 'package:movies_app/model/movie_model.dart';
