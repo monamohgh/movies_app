@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/blocs/search_cubit.dart';
+import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -35,6 +36,8 @@ class SearchTab extends StatelessWidget {
                           context.read<SearchCubit>().search(query);
                         },
                         decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.search,
+                          hintStyle: AppStyles.regular16White,
                           prefixIcon: Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 15,
