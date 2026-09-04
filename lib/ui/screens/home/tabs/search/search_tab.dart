@@ -5,6 +5,7 @@ import 'package:movies_app/blocs/search_cubit.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import '../../../../../utils/data_store.dart';
 import '../../../movie_details/movie_details_screen.dart';
 
 class SearchTab extends StatelessWidget {
@@ -111,12 +112,26 @@ class SearchTab extends StatelessWidget {
             : int.tryParse(movie['id'].toString()) ?? 0;
         return GestureDetector(
           onTap: () {
+            final int movieId = movie['id'] is int
+                ? movie['id']
+                : int.tryParse(movie['id'].toString()) ?? 0;
+
+
+            final savedMovie = SavedMovie(
+              id: movieId,
+              title: movie['title'] ?? '',
+              imageUrl: movie['medium_cover_image'] ?? '',
+              rating: (movie['rating'] is num) ? (movie['rating'] as num).toDouble() : 0.0,
+            );
+
+
+            MovieDataStore.addToWatchList(savedMovie);
+
+
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MovieDetailsScreen(
-                  movieId: movieId,
-                ),
+                builder: (context) => MovieDetailsScreen(movieId: movieId),
               ),
             );
           },
@@ -125,9 +140,6 @@ class SearchTab extends StatelessWidget {
             child: Image.network(
               movie['medium_cover_image'] ?? '',
               fit: BoxFit.fill,
-              errorBuilder: (_, __, ___) => Container(
-                color: Colors.grey[800],
-              ),
             ),
           ),
         );

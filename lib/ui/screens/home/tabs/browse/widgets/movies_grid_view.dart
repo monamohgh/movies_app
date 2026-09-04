@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/l10n/app_localizations.dart';
 import 'package:movies_app/ui/screens/home/tabs/browse/widgets/movie_card.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/app_colors.dart';
 import '../../../../../../model/movie_model.dart';
+import '../../../../../../utils/data_store.dart';
 import '../../../../movie_details/movie_details_screen.dart';
 
 class  MoviesGridView extends StatelessWidget {
@@ -20,20 +20,34 @@ class  MoviesGridView extends StatelessWidget {
    }
    return GridView.builder(
        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: .7,crossAxisSpacing: 12,mainAxisSpacing: 16),
-       itemBuilder: (context, index) {
-       final movie=movies[index];
-       return MovieCard(imageUrl: movie.image, rating: movie.rating.toString(),
-         onTap:(){
-         //todo:go to movies details
+     itemBuilder: (context, index) {
+       final movie = movies[index];
+       return MovieCard(
+         imageUrl: movie.image,
+         rating: movie.rating.toString(),
+         onTap: () {
+
+           final savedMovie = SavedMovie(
+             id: movie.id,
+             title: movie.title,
+             imageUrl: movie.image,
+             rating: movie.rating,
+           );
+
+
+           MovieDataStore.addToWatchList(savedMovie);
+
+
            Navigator.push(
              context,
              MaterialPageRoute(
                builder: (context) => MovieDetailsScreen(movieId: movie.id),
              ),
            );
-         },);
-       },
-       itemCount: movies.length,
+         },
+       );
+     }
+       ,itemCount: movies.length,
    );
   }
 }
